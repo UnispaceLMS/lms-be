@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {
-    TeacherRequest mapEntityToResponse(Teacher teacher);
+  TeacherRequest mapEntityToResponse(Teacher teacher);
 
-    Teacher mapRequestToEntity(TeacherRequest teacherRequest);
+  Teacher mapRequestToEntity(TeacherRequest teacherRequest);
 }

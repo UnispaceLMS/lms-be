@@ -1,44 +1,43 @@
 package com.unispace.lms.dto.student;
 
 import com.unispace.lms.enums.Program;
+import java.time.Instant;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.Instant;
-import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentRequest {
-    private Integer teacherId;
+  private Integer teacherId;
 
-    private String email;
+  private String email;
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
+  private String lastName;
 
-    private Instant dateOfBirth;
+  private Instant dateOfBirth;
 
-    private String phoneNumber;
+  private String phoneNumber;
 
-    private Program program;
+  private Program program;
 
-    private String year;
+  private String year;
 
-    private Integer expectedGraduation;
+  private Integer expectedGraduation;
 
-    private List<String> allergies;
+  private List<String> allergies;
 
-    private String primaryDiagnosis;
+  private String primaryDiagnosis;
 
-    private String emergencyContactName;
+  private String emergencyContactName;
 
-    private String emergencyContactPhoneNumber;
+  private String emergencyContactPhoneNumber;
 
-    private String emergencyContactEmail;
+  private String emergencyContactEmail;
 }

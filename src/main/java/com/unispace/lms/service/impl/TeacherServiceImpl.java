@@ -23,8 +23,7 @@ public class TeacherServiceImpl implements TeacherService {
     if (Objects.nonNull(existing)) {
       toPersist.setId(existing.getId());
     }
-      return teacherMapper.mapEntityToResponse(
-          teacherRepository.save(toPersist));
+    return teacherMapper.mapEntityToResponse(teacherRepository.save(toPersist));
   }
 
   @Override

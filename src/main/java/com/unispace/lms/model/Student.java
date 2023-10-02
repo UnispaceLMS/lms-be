@@ -1,14 +1,18 @@
 package com.unispace.lms.model;
 
 import com.unispace.lms.enums.Program;
-import jakarta.persistence.*;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.time.Instant;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.Instant;
-import java.util.List;
 
 @Data
 @Entity
@@ -22,7 +26,7 @@ public class Student {
   private Integer id;
 
   private Integer teacherId;
-  
+
   private String email;
 
   private String firstName;
@@ -39,8 +43,7 @@ public class Student {
 
   private Integer expectedGraduation;
 
-  @ElementCollection
-  private List<String> allergies;
+  @ElementCollection private List<String> allergies;
 
   private String primaryDiagnosis;
 
