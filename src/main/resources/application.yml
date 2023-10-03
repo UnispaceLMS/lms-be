@@ -1,8 +1,35 @@
 spring:
+  profiles:
+    active: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
   datasource:
     url: jdbc:postgresql://localhost:5432/unispace_lms
     username: admin
     password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: staging
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ep-flat-bird-09220443.us-east-2.aws.neon.tech/unispace_lms
+    username: siddharth.bhardwaj2051999
+    password: UOmLVHA3PRg0
   jpa:
     hibernate:
       ddl-auto: update
