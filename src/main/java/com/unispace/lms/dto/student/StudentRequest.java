@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StudentRequest {
+  private Integer id;
+
   private Integer teacherId;
 
   private String email;

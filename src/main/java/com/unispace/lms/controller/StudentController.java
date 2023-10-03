@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("v1.0/student")
@@ -31,8 +32,12 @@ public class StudentController {
   }
 
   @GetMapping(value = "/fetch", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<StudentRequest> fetch(@RequestParam("email") String email) {
-    return ResponseEntity.ok(studentService.fetch(email));
+  public ResponseEntity<StudentRequest> fetch(@RequestParam("id") Integer id) {
+    StudentRequest student = studentService.fetch(id);
+    if (Objects.isNull(student)) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+    return ResponseEntity.ok(student);
   }
 
   @PostMapping(

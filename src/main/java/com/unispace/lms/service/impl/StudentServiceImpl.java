@@ -27,22 +27,21 @@ public class StudentServiceImpl implements StudentService {
 
   @Override
   public StudentRequest createOrUpdate(StudentRequest request) {
-    Student toPersist = studentMapper.mapRequestToEntity(request);
-    Student existing =
-        studentRepository.findByTeacherIdAndFirstNameAndLastNameAndProgram(
-            request.getTeacherId(),
-            request.getFirstName(),
-            request.getLastName(),
-            request.getProgram());
-    if (Objects.nonNull(existing)) {
-      toPersist.setId(existing.getId());
+    if (Objects.isNull(request)) {
+      return null;
     }
+    Optional<Student> existing = Optional.empty();
+    if (Objects.nonNull(request.getId())) {
+      existing = studentRepository.findById(request.getId());
+    }
+    Student toPersist = studentMapper.mapRequestToEntity(request);
+    existing.ifPresent(existingStudent -> Student.prepareForUpsert(toPersist, existingStudent));
     return studentMapper.mapEntityToResponse(studentRepository.save(toPersist));
   }
 
   @Override
-  public StudentRequest fetch(String email) {
-    return studentMapper.mapEntityToResponse(studentRepository.findByEmail(email));
+  public StudentRequest fetch(Integer id) {
+    return studentMapper.mapEntityToResponse(studentRepository.findById(id).orElse(null));
   }
 
   @Override
