@@ -28,7 +28,7 @@ public class Student {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
-  private Integer teacherId;
+  private Integer ownerUserId;
 
   private String email;
 
@@ -62,8 +62,8 @@ public class Student {
       return;
     }
     newEntity.setId(existingEntity.getId());
-    if (Objects.isNull(newEntity.getTeacherId())) {
-      newEntity.setTeacherId(existingEntity.getTeacherId());
+    if (Objects.isNull(newEntity.getOwnerUserId())) {
+      newEntity.setOwnerUserId(existingEntity.getOwnerUserId());
     }
     if (Objects.isNull(newEntity.getEmail())) {
       newEntity.setEmail(existingEntity.getEmail());

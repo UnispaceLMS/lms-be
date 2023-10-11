@@ -1,5 +1,6 @@
 package com.unispace.lms.model;
 
+import com.unispace.lms.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "teacher")
-public class Teacher {
+@Table(name = "user_account")
+public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
@@ -28,4 +29,8 @@ public class Teacher {
   private String lastName;
 
   private String phoneNumber;
+
+  private Role role;
+
+  private String password;
 }

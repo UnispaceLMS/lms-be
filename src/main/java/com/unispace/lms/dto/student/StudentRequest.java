@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class StudentRequest {
   private Integer id;
 
-  private Integer teacherId;
+  private Integer ownerUserId;
 
   private String email;
 

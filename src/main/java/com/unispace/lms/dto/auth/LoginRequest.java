@@ -1,4 +1,4 @@
-package com.unispace.lms.dto.teacher;
+package com.unispace.lms.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherRequest {
+public class LoginRequest {
   private String email;
-
-  private String firstName;
-
-  private String lastName;
-
-  private String phoneNumber;
+  private String password;
 }
