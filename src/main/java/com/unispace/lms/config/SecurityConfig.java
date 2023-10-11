@@ -31,11 +31,21 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.authorizeHttpRequests(
+    return http.cors()
+        .and()
+        .csrf()
+        .disable()
+        .authorizeHttpRequests(
             auth ->
                 auth.requestMatchers(AntPathRequestMatcher.antMatcher("/v1.0/auth/**"))
                     .permitAll()
-                    .requestMatchers("swagger-ui/**", "/swagger-ui/index.html", "/v3/api-docs/**")
+                    .requestMatchers(
+                        "swagger-ui/**",
+                        "/swagger-ui/index.html",
+                        "/v3/api-docs/swagger-config",
+                        "/v3/api-docs")
+                    .permitAll()
+                    .requestMatchers("/v1.0/auth/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

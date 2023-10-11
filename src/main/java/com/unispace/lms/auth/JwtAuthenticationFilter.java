@@ -33,6 +33,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
+    if (request.getServletPath().contains("/auth")) {
+      filterChain.doFilter(request, response);
+      return;
+    }
     Map<String, Object> errorDetails = new HashMap<>();
 
     try {
