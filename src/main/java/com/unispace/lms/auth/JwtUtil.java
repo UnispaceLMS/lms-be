@@ -1,5 +1,6 @@
 package com.unispace.lms.auth;
 
+import com.unispace.lms.constant.AuthConstants;
 import com.unispace.lms.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -21,9 +22,6 @@ public class JwtUtil {
   private long accessTokenValidity = 10;
 
   private final JwtParser jwtParser;
-
-  private final String TOKEN_HEADER = "Authorization";
-  private final String TOKEN_PREFIX = "Bearer ";
 
   public JwtUtil() {
     this.jwtParser = Jwts.parser().setSigningKey(secret_key);
@@ -61,9 +59,9 @@ public class JwtUtil {
 
   public String resolveToken(HttpServletRequest request) {
 
-    String bearerToken = request.getHeader(TOKEN_HEADER);
-    if (bearerToken != null && bearerToken.startsWith(TOKEN_PREFIX)) {
-      return bearerToken.substring(TOKEN_PREFIX.length());
+    String bearerToken = request.getHeader(AuthConstants.TOKEN_HEADER);
+    if (bearerToken != null && bearerToken.startsWith(AuthConstants.TOKEN_PREFIX)) {
+      return bearerToken.substring(AuthConstants.TOKEN_PREFIX.length());
     }
     return null;
   }
@@ -76,7 +74,7 @@ public class JwtUtil {
     return claims.getSubject();
   }
 
-  private Claims parseJwtClaims(String token) {
+  public Claims parseJwtClaims(String token) {
     return jwtParser.parseClaimsJws(token).getBody();
   }
 

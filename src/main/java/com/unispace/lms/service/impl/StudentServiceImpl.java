@@ -6,6 +6,7 @@ import com.unispace.lms.mapper.AssistanceMapper;
 import com.unispace.lms.mapper.StudentMapper;
 import com.unispace.lms.model.Assistance;
 import com.unispace.lms.model.Student;
+import com.unispace.lms.model.User;
 import com.unispace.lms.repository.AssistanceRepository;
 import com.unispace.lms.repository.StudentRepository;
 import com.unispace.lms.service.StudentService;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,12 +32,21 @@ public class StudentServiceImpl implements StudentService {
     if (Objects.isNull(request)) {
       return null;
     }
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     Optional<Student> existing = Optional.empty();
     if (Objects.nonNull(request.getId())) {
       existing = studentRepository.findById(request.getId());
     }
     Student toPersist = studentMapper.mapRequestToEntity(request);
-    existing.ifPresent(existingStudent -> Student.prepareForUpsert(toPersist, existingStudent));
+    toPersist.setOwnerUserId(user.getId());
+    if (existing.isPresent()) {
+      if (Objects.equals(existing.get().getOwnerUserId(), user.getId())) {
+        Student.prepareForUpsert(toPersist, existing.get());
+      } else {
+        // todo: return bad request in this case
+        return null;
+      }
+    }
     return studentMapper.mapEntityToResponse(studentRepository.save(toPersist));
   }
 
