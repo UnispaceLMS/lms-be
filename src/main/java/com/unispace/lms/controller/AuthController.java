@@ -1,5 +1,7 @@
 package com.unispace.lms.controller;
 
+import static com.unispace.lms.constant.AuthConstants.JWT_RESPONSE_HEADER;
+
 import com.unispace.lms.auth.JwtUtil;
 import com.unispace.lms.constant.AuthConstants;
 import com.unispace.lms.dto.auth.LoginRequest;
@@ -53,7 +55,8 @@ public class AuthController {
     }
     UserRequest response = userMapper.mapEntityToResponse(user);
     SecurityContextHolder.getContext().setAuthentication(authentication);
-    servletResponse.setHeader("x-access-token", token);
+    servletResponse.setHeader(JWT_RESPONSE_HEADER, token);
+    servletResponse.setHeader("Access-Control-Expose-Headers", JWT_RESPONSE_HEADER);
     return ResponseEntity.ok(response);
   }
 

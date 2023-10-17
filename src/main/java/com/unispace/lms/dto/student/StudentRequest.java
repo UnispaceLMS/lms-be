@@ -21,6 +21,8 @@ public class StudentRequest {
 
   private String firstName;
 
+  private String middleName;
+
   private String lastName;
 
   private Instant dateOfBirth;
@@ -33,8 +35,6 @@ public class StudentRequest {
 
   private Integer expectedGraduation;
 
-  private List<String> allergies;
-
   private String primaryDiagnosis;
 
   private String emergencyContactName;
@@ -42,4 +42,42 @@ public class StudentRequest {
   private String emergencyContactPhoneNumber;
 
   private String emergencyContactEmail;
+
+  private String mentalHealthStatus;
+
+  private List<String> allergies;
+
+  private List<String> interests;
+
+  private List<String> calmDownThings;
+
+  private List<String> triggers;
+
+  private List<String> bestTeachingStrategies;
+
+  private List<String> friendsAndFamily;
+
+  private List<String> dreamJobs;
+
+  private List<String> dreamLivingSituations;
+
+  private List<String> worries;
+
+  private List<String> negativeThoughtTriggers;
+
+  private List<String> helpfulStrategies;
+
+  private List<String> hardTimesOfYear;
+
+  private List<String> safetyConceptStruggles;
+
+  private List<String> helpfulAccommodations;
+
+  private List<String> morningHelps;
+
+  private List<String> eveningHelps;
+
+  private List<String> independentlyCapableTasks;
+
+  private List<String> helpRequiredTasks;
 }
