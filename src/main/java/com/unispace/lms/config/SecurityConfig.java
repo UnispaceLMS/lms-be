@@ -5,10 +5,12 @@ import com.unispace.lms.service.impl.LmsUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,10 +33,7 @@ public class SecurityConfig {
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.cors()
-        .and()
-        .csrf()
-        .disable()
+    return http.cors(Customizer.withDefaults())
         .authorizeHttpRequests(
             auth ->
                 auth.requestMatchers(AntPathRequestMatcher.antMatcher("/v1.0/auth/**"))
@@ -55,6 +54,7 @@ public class SecurityConfig {
                     HeadersConfigurer.FrameOptionsConfig::sameOrigin))
         .userDetailsService(lmsUserDetailsService)
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .csrf(AbstractHttpConfigurer::disable)
         .build();
   }
 
