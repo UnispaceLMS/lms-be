@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class JwtUtil {
   // todo: shift to vault
   private final String secret_key = "mysecretkey";
-  private long accessTokenValidity = 10;
+  private long accessTokenValidity = 1440; // 1 day
 
   private final JwtParser jwtParser;
 
