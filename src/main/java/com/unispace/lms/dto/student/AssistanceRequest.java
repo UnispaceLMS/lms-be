@@ -11,10 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AssistanceRequest {
-  private Integer id;
-
-  private Integer studentId;
-
   private AssistanceType type;
 
   private String note;

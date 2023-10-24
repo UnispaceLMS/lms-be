@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class StrengthOrConcernRequest {
-  private Integer studentId;
-
   private StrengthOrConcernType type;
 
   private String note;

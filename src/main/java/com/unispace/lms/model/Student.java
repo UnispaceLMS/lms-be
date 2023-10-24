@@ -152,6 +152,22 @@ public class Student {
   @Column(name = "help_required_task")
   private List<String> helpRequiredTasks;
 
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_strength")
+  private List<StrengthOrConcern> strengths;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_concern")
+  private List<StrengthOrConcern> concerns;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_assistance")
+  private List<Assistance> assistances;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_record")
+  private List<Record> records;
+
   @Transient
   public static void prepareForUpsert(Student newEntity, Student existingEntity) {
     if (Objects.isNull(newEntity) || Objects.isNull(existingEntity)) {
@@ -205,57 +221,115 @@ public class Student {
     }
     if (CollectionUtils.isEmpty(newEntity.getAllergies())) {
       newEntity.setAllergies(existingEntity.getAllergies());
+    } else {
+      newEntity.getAllergies().addAll(existingEntity.getAllergies());
     }
     if (CollectionUtils.isEmpty(newEntity.getInterests())) {
       newEntity.setInterests(existingEntity.getInterests());
+    } else {
+      newEntity.getInterests().addAll(existingEntity.getInterests());
     }
     if (CollectionUtils.isEmpty(newEntity.getCalmDownThings())) {
       newEntity.setCalmDownThings(existingEntity.getCalmDownThings());
+    } else {
+      newEntity.getCalmDownThings().addAll(existingEntity.getCalmDownThings());
     }
     if (CollectionUtils.isEmpty(newEntity.getTriggers())) {
       newEntity.setTriggers(existingEntity.getTriggers());
+    } else {
+      newEntity.getTriggers().addAll(existingEntity.getTriggers());
     }
     if (CollectionUtils.isEmpty(newEntity.getBestTeachingStrategies())) {
       newEntity.setBestTeachingStrategies(existingEntity.getBestTeachingStrategies());
+    } else {
+      newEntity.getBestTeachingStrategies().addAll(existingEntity.getBestTeachingStrategies());
     }
     if (CollectionUtils.isEmpty(newEntity.getFriendsAndFamily())) {
       newEntity.setFriendsAndFamily(existingEntity.getFriendsAndFamily());
+    } else {
+      newEntity.getFriendsAndFamily().addAll(existingEntity.getFriendsAndFamily());
     }
     if (CollectionUtils.isEmpty(newEntity.getDreamJobs())) {
       newEntity.setDreamJobs(existingEntity.getDreamJobs());
+    } else {
+      newEntity.getDreamJobs().addAll(existingEntity.getDreamJobs());
     }
     if (CollectionUtils.isEmpty(newEntity.getDreamLivingSituations())) {
       newEntity.setDreamLivingSituations(existingEntity.getDreamLivingSituations());
+    } else {
+      newEntity.getDreamLivingSituations().addAll(existingEntity.getDreamLivingSituations());
     }
     if (CollectionUtils.isEmpty(newEntity.getWorries())) {
       newEntity.setWorries(existingEntity.getWorries());
+    } else {
+      newEntity.getWorries().addAll(existingEntity.getWorries());
     }
     if (CollectionUtils.isEmpty(newEntity.getNegativeThoughtTriggers())) {
       newEntity.setNegativeThoughtTriggers(existingEntity.getNegativeThoughtTriggers());
+    } else {
+      newEntity.getNegativeThoughtTriggers().addAll(existingEntity.getNegativeThoughtTriggers());
     }
     if (CollectionUtils.isEmpty(newEntity.getHelpfulStrategies())) {
       newEntity.setHelpfulStrategies(existingEntity.getHelpfulStrategies());
+    } else {
+      newEntity.getHelpfulStrategies().addAll(existingEntity.getHelpfulStrategies());
     }
     if (CollectionUtils.isEmpty(newEntity.getHardTimesOfYear())) {
       newEntity.setHardTimesOfYear(existingEntity.getHardTimesOfYear());
+    } else {
+      newEntity.getHardTimesOfYear().addAll(existingEntity.getHardTimesOfYear());
     }
     if (CollectionUtils.isEmpty(newEntity.getSafetyConceptStruggles())) {
       newEntity.setSafetyConceptStruggles(existingEntity.getSafetyConceptStruggles());
+    } else {
+      newEntity.getSafetyConceptStruggles().addAll(existingEntity.getSafetyConceptStruggles());
     }
     if (CollectionUtils.isEmpty(newEntity.getHelpfulAccommodations())) {
       newEntity.setHelpfulAccommodations(existingEntity.getHelpfulAccommodations());
+    } else {
+      newEntity.getHelpfulAccommodations().addAll(existingEntity.getHelpfulAccommodations());
     }
     if (CollectionUtils.isEmpty(newEntity.getMorningHelps())) {
       newEntity.setMorningHelps(existingEntity.getMorningHelps());
+    } else {
+      newEntity.getMorningHelps().addAll(existingEntity.getMorningHelps());
     }
     if (CollectionUtils.isEmpty(newEntity.getEveningHelps())) {
       newEntity.setEveningHelps(existingEntity.getEveningHelps());
+    } else {
+      newEntity.getEveningHelps().addAll(existingEntity.getEveningHelps());
     }
     if (CollectionUtils.isEmpty(newEntity.getIndependentlyCapableTasks())) {
       newEntity.setIndependentlyCapableTasks(existingEntity.getIndependentlyCapableTasks());
+    } else {
+      newEntity
+          .getIndependentlyCapableTasks()
+          .addAll(existingEntity.getIndependentlyCapableTasks());
     }
     if (CollectionUtils.isEmpty(newEntity.getHelpRequiredTasks())) {
       newEntity.setHelpRequiredTasks(existingEntity.getHelpRequiredTasks());
+    } else {
+      newEntity.getHelpRequiredTasks().addAll(existingEntity.getHelpRequiredTasks());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getStrengths())) {
+      newEntity.setStrengths(existingEntity.getStrengths());
+    } else {
+      newEntity.getStrengths().addAll(existingEntity.getStrengths());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getConcerns())) {
+      newEntity.setConcerns(existingEntity.getConcerns());
+    } else {
+      newEntity.getConcerns().addAll(existingEntity.getConcerns());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getAssistances())) {
+      newEntity.setAssistances(existingEntity.getAssistances());
+    } else {
+      newEntity.getAssistances().addAll(existingEntity.getAssistances());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getRecords())) {
+      newEntity.setRecords(existingEntity.getRecords());
+    } else {
+      newEntity.getRecords().addAll(existingEntity.getRecords());
     }
   }
 }

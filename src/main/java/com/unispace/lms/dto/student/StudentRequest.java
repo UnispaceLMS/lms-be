@@ -80,4 +80,12 @@ public class StudentRequest {
   private List<String> independentlyCapableTasks;
 
   private List<String> helpRequiredTasks;
+
+  private List<StrengthOrConcernRequest> strengths;
+
+  private List<StrengthOrConcernRequest> concerns;
+
+  private List<AssistanceRequest> assistances;
+
+  private List<RecordRequest> records;
 }

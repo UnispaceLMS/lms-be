@@ -1,6 +1,6 @@
 package com.unispace.lms.model;
 
-import com.unispace.lms.enums.RecordType;
+import com.unispace.lms.enums.StrengthOrConcernType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class Record {
+public class StrengthOrConcern {
   @Enumerated(EnumType.STRING)
-  private RecordType type;
+  private StrengthOrConcernType type;
 
   private String note;
 }

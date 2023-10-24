@@ -1,6 +1,5 @@
 package com.unispace.lms.controller;
 
-import com.unispace.lms.dto.student.AssistanceRequest;
 import com.unispace.lms.dto.student.StudentRequest;
 import com.unispace.lms.service.StudentService;
 import java.util.List;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,19 +40,9 @@ public class StudentController {
     return ResponseEntity.ok(student);
   }
 
-  @PostMapping(
-      value = "/assistance/createOrUpdate",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<AssistanceRequest> createOrUpdateAssistance(
-      @RequestBody AssistanceRequest assistanceRequest) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(studentService.createOrUpdateAssistance(assistanceRequest));
-  }
-
-  @GetMapping(value = "/assistance/fetch", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<AssistanceRequest>> fetchAssistance(
-      @RequestParam("studentId") Integer studentId) {
-    return ResponseEntity.ok(studentService.fetchAssistance(studentId));
+  @GetMapping(value = "/roster", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<StudentRequest>> fetchRoster(
+      @RequestHeader("Authorization") String jwt) {
+    return ResponseEntity.ok(studentService.fetchRoster(jwt));
   }
 }

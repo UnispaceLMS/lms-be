@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecordRequest {
-  private Integer studentId;
-
   private RecordType type;
 
   private String note;

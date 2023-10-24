@@ -1,13 +1,9 @@
 package com.unispace.lms.service.impl;
 
-import com.unispace.lms.dto.student.AssistanceRequest;
 import com.unispace.lms.dto.student.StudentRequest;
-import com.unispace.lms.mapper.AssistanceMapper;
 import com.unispace.lms.mapper.StudentMapper;
-import com.unispace.lms.model.Assistance;
 import com.unispace.lms.model.Student;
 import com.unispace.lms.model.User;
-import com.unispace.lms.repository.AssistanceRepository;
 import com.unispace.lms.repository.StudentRepository;
 import com.unispace.lms.service.StudentService;
 import java.util.List;
@@ -24,8 +20,6 @@ import org.springframework.stereotype.Service;
 public class StudentServiceImpl implements StudentService {
   @Autowired private StudentRepository studentRepository;
   @Autowired private StudentMapper studentMapper;
-  @Autowired private AssistanceRepository assistanceRepository;
-  @Autowired private AssistanceMapper assistanceMapper;
 
   @Override
   public StudentRequest createOrUpdate(StudentRequest request) {
@@ -56,23 +50,23 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public AssistanceRequest createOrUpdateAssistance(AssistanceRequest assistanceRequest) {
-    Optional<Assistance> existing = Optional.empty();
-    if (Objects.nonNull(assistanceRequest.getId())) {
-      existing = assistanceRepository.findById(assistanceRequest.getId());
+  public List<StudentRequest> fetchRoster(String jwt) {
+    Integer ownerUserId = null;
+    if (Objects.nonNull(SecurityContextHolder.getContext().getAuthentication())
+        && Objects.nonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
+      User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      if (Objects.nonNull(user)) {
+        ownerUserId = user.getId();
+      }
     }
-    Assistance toPersist = assistanceMapper.mapRequestToEntity(assistanceRequest);
-    if (existing.isPresent()
-        && Objects.equals(existing.get().getStudentId(), assistanceRequest.getStudentId())) {
-      toPersist.setId(existing.get().getId());
-    }
-    return assistanceMapper.mapEntityToResponse(assistanceRepository.save(toPersist));
-  }
 
-  @Override
-  public List<AssistanceRequest> fetchAssistance(Integer studentId) {
-    return assistanceRepository.findByStudentId(studentId).stream()
-        .map(assistance -> assistanceMapper.mapEntityToResponse(assistance))
+    if (Objects.isNull(ownerUserId)) {
+      // todo: return bad request
+      return null;
+    }
+
+    return studentRepository.findAllByOwnerUserId(ownerUserId).stream()
+        .map(student -> studentMapper.mapEntityToResponse(student))
         .collect(Collectors.toList());
   }
 }
