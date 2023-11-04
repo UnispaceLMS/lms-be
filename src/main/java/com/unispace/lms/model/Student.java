@@ -1,5 +1,6 @@
 package com.unispace.lms.model;
 
+import com.unispace.lms.enums.BloodGroup;
 import com.unispace.lms.enums.Program;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 @Data
@@ -54,13 +56,33 @@ public class Student {
 
   private String primaryDiagnosis;
 
+  private BloodGroup bloodGroup;
+
+  private String legalGuardianName;
+
   private String emergencyContactName;
 
   private String emergencyContactPhoneNumber;
 
+  private String emergencyContactSecondaryPhoneNumber;
+
   private String emergencyContactEmail;
 
   private String mentalHealthStatus;
+
+  private String allergicReactions;
+
+  private String medicineRoutine;
+
+  private String mentalHealthDiagnosis;
+
+  private String mentalHealthStudentPerspective;
+
+  private String objectCopingMechanism;
+
+  private String activityCopingMechanism;
+
+  private String peopleCopingMechanism;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_allergy")
@@ -88,9 +110,14 @@ public class Student {
   private List<String> bestTeachingStrategies;
 
   @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_friends_family")
-  @Column(name = "friends_family")
-  private List<String> friendsAndFamily;
+  @CollectionTable(name = "student_friends")
+  @Column(name = "friends")
+  private List<String> friends;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_family")
+  @Column(name = "family")
+  private List<String> family;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_dream_job")
@@ -106,6 +133,11 @@ public class Student {
   @CollectionTable(name = "student_worry")
   @Column(name = "worry")
   private List<String> worries;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_fear")
+  @Column(name = "fear")
+  private List<String> fears;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_negative_thought_trigger")
@@ -128,14 +160,19 @@ public class Student {
   private List<String> safetyConceptStruggles;
 
   @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_helpful_accomodation")
-  @Column(name = "helpful_accomodation")
+  @CollectionTable(name = "student_helpful_accommodation")
+  @Column(name = "helpful_accommodation")
   private List<String> helpfulAccommodations;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_morning_help")
   @Column(name = "morning_help")
   private List<String> morningHelps;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_afternoon_help")
+  @Column(name = "afternoon_help")
+  private List<String> afternoonHelps;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_evening_help")
@@ -167,6 +204,14 @@ public class Student {
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_record")
   private List<Record> records;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_support")
+  private List<Support> supports;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_transition_assessment")
+  private List<TransitionAssessment> transitionAssessments;
 
   @Transient
   public static void prepareForUpsert(Student newEntity, Student existingEntity) {
@@ -207,17 +252,49 @@ public class Student {
     if (Objects.isNull(newEntity.getPrimaryDiagnosis())) {
       newEntity.setPrimaryDiagnosis(existingEntity.getPrimaryDiagnosis());
     }
+    if (Objects.isNull(newEntity.getBloodGroup())) {
+      newEntity.setBloodGroup(existingEntity.getBloodGroup());
+    }
+    if (StringUtils.isEmpty(newEntity.getLegalGuardianName())) {
+      newEntity.setLegalGuardianName(existingEntity.getLegalGuardianName());
+    }
     if (Objects.isNull(newEntity.getEmergencyContactName())) {
       newEntity.setEmergencyContactName(existingEntity.getEmergencyContactName());
     }
     if (Objects.isNull(newEntity.getEmergencyContactPhoneNumber())) {
       newEntity.setEmergencyContactPhoneNumber(existingEntity.getEmergencyContactPhoneNumber());
     }
+    if (StringUtils.isEmpty(newEntity.getEmergencyContactSecondaryPhoneNumber())) {
+      newEntity.setEmergencyContactSecondaryPhoneNumber(
+          existingEntity.getEmergencyContactSecondaryPhoneNumber());
+    }
     if (Objects.isNull(newEntity.getEmergencyContactEmail())) {
       newEntity.setEmergencyContactEmail(existingEntity.getEmergencyContactEmail());
     }
     if (Objects.isNull(newEntity.getMentalHealthStatus())) {
       newEntity.setMentalHealthStatus(existingEntity.getMentalHealthStatus());
+    }
+    if (StringUtils.isEmpty(newEntity.getAllergicReactions())) {
+      newEntity.setAllergicReactions(existingEntity.getAllergicReactions());
+    }
+    if (StringUtils.isEmpty(newEntity.getMedicineRoutine())) {
+      newEntity.setMedicineRoutine(existingEntity.getMedicineRoutine());
+    }
+    if (StringUtils.isEmpty(newEntity.getMentalHealthDiagnosis())) {
+      newEntity.setMentalHealthDiagnosis(existingEntity.getMentalHealthDiagnosis());
+    }
+    if (StringUtils.isEmpty(newEntity.getMentalHealthStudentPerspective())) {
+      newEntity.setMentalHealthStudentPerspective(
+          existingEntity.getMentalHealthStudentPerspective());
+    }
+    if (StringUtils.isEmpty(newEntity.getObjectCopingMechanism())) {
+      newEntity.setObjectCopingMechanism(existingEntity.getObjectCopingMechanism());
+    }
+    if (StringUtils.isEmpty(newEntity.getActivityCopingMechanism())) {
+      newEntity.setActivityCopingMechanism(existingEntity.getActivityCopingMechanism());
+    }
+    if (StringUtils.isEmpty(newEntity.getPeopleCopingMechanism())) {
+      newEntity.setPeopleCopingMechanism(existingEntity.getPeopleCopingMechanism());
     }
     if (CollectionUtils.isEmpty(newEntity.getAllergies())) {
       newEntity.setAllergies(existingEntity.getAllergies());
@@ -244,10 +321,15 @@ public class Student {
     } else {
       newEntity.getBestTeachingStrategies().addAll(existingEntity.getBestTeachingStrategies());
     }
-    if (CollectionUtils.isEmpty(newEntity.getFriendsAndFamily())) {
-      newEntity.setFriendsAndFamily(existingEntity.getFriendsAndFamily());
+    if (CollectionUtils.isEmpty(newEntity.getFriends())) {
+      newEntity.setFriends(existingEntity.getFriends());
     } else {
-      newEntity.getFriendsAndFamily().addAll(existingEntity.getFriendsAndFamily());
+      newEntity.getFriends().addAll(existingEntity.getFriends());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getFamily())) {
+      newEntity.setFamily(existingEntity.getFamily());
+    } else {
+      newEntity.getFamily().addAll(existingEntity.getFamily());
     }
     if (CollectionUtils.isEmpty(newEntity.getDreamJobs())) {
       newEntity.setDreamJobs(existingEntity.getDreamJobs());
@@ -263,6 +345,11 @@ public class Student {
       newEntity.setWorries(existingEntity.getWorries());
     } else {
       newEntity.getWorries().addAll(existingEntity.getWorries());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getFears())) {
+      newEntity.setFears(existingEntity.getFears());
+    } else {
+      newEntity.getFears().addAll(existingEntity.getFears());
     }
     if (CollectionUtils.isEmpty(newEntity.getNegativeThoughtTriggers())) {
       newEntity.setNegativeThoughtTriggers(existingEntity.getNegativeThoughtTriggers());
@@ -293,6 +380,11 @@ public class Student {
       newEntity.setMorningHelps(existingEntity.getMorningHelps());
     } else {
       newEntity.getMorningHelps().addAll(existingEntity.getMorningHelps());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getAfternoonHelps())) {
+      newEntity.setAfternoonHelps(existingEntity.getAfternoonHelps());
+    } else {
+      newEntity.getAfternoonHelps().addAll(existingEntity.getAfternoonHelps());
     }
     if (CollectionUtils.isEmpty(newEntity.getEveningHelps())) {
       newEntity.setEveningHelps(existingEntity.getEveningHelps());
@@ -330,6 +422,16 @@ public class Student {
       newEntity.setRecords(existingEntity.getRecords());
     } else {
       newEntity.getRecords().addAll(existingEntity.getRecords());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getSupports())) {
+      newEntity.setSupports(existingEntity.getSupports());
+    } else {
+      newEntity.getSupports().addAll(existingEntity.getSupports());
+    }
+    if (CollectionUtils.isEmpty(newEntity.getTransitionAssessments())) {
+      newEntity.setTransitionAssessments(existingEntity.getTransitionAssessments());
+    } else {
+      newEntity.getTransitionAssessments().addAll(existingEntity.getTransitionAssessments());
     }
   }
 }
