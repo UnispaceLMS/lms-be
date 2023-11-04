@@ -8,5 +8,7 @@ public interface StudentService {
 
   StudentRequest fetch(Integer id);
 
-  List<StudentRequest> fetchRoster(String jwt);
+  List<StudentRequest> fetchRoster();
+
+  void deleteStudents(List<Integer> studentIdList);
 }

@@ -1,5 +1,6 @@
 package com.unispace.lms.dto.student;
 
+import com.unispace.lms.enums.BloodGroup;
 import com.unispace.lms.enums.Program;
 import java.time.Instant;
 import java.util.List;
@@ -55,7 +56,9 @@ public class StudentRequest {
 
   private List<String> bestTeachingStrategies;
 
-  private List<String> friendsAndFamily;
+  private List<String> friends;
+
+  private List<String> family;
 
   private List<String> dreamJobs;
 
@@ -88,4 +91,32 @@ public class StudentRequest {
   private List<AssistanceRequest> assistances;
 
   private List<RecordRequest> records;
+
+  private BloodGroup bloodGroup;
+
+  private String legalGuardianName;
+
+  private String emergencyContactSecondaryPhoneNumber;
+
+  private String allergicReactions;
+
+  private String medicineRoutine;
+
+  private String mentalHealthDiagnosis;
+
+  private String mentalHealthStudentPerspective;
+
+  private String objectCopingMechanism;
+
+  private String activityCopingMechanism;
+
+  private String peopleCopingMechanism;
+
+  private List<String> fears;
+
+  private List<String> afternoonHelps;
+
+  private List<SupportRequest> supports;
+
+  private List<TransitionAssessmentRequest> transitionAssessments;
 }

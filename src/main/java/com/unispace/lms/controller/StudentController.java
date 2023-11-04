@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,8 +41,13 @@ public class StudentController {
   }
 
   @GetMapping(value = "/roster", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StudentRequest>> fetchRoster(
-      @RequestHeader("Authorization") String jwt) {
-    return ResponseEntity.ok(studentService.fetchRoster(jwt));
+  public ResponseEntity<List<StudentRequest>> fetchRoster() {
+    return ResponseEntity.ok(studentService.fetchRoster());
+  }
+
+  @DeleteMapping(value = "/delete")
+  public ResponseEntity<List<Integer>> deleteStudents(@RequestBody List<Integer> studentIdList) {
+    studentService.deleteStudents(studentIdList);
+    return ResponseEntity.status(HttpStatus.ACCEPTED).build();
   }
 }

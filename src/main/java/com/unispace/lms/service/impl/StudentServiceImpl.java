@@ -1,5 +1,6 @@
 package com.unispace.lms.service.impl;
 
+import com.unispace.lms.auth.JwtUtil;
 import com.unispace.lms.dto.student.StudentRequest;
 import com.unispace.lms.mapper.StudentMapper;
 import com.unispace.lms.model.Student;
@@ -50,16 +51,8 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<StudentRequest> fetchRoster(String jwt) {
-    Integer ownerUserId = null;
-    if (Objects.nonNull(SecurityContextHolder.getContext().getAuthentication())
-        && Objects.nonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
-      User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-      if (Objects.nonNull(user)) {
-        ownerUserId = user.getId();
-      }
-    }
-
+  public List<StudentRequest> fetchRoster() {
+    Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
     if (Objects.isNull(ownerUserId)) {
       // todo: return bad request
       return null;
@@ -68,5 +61,21 @@ public class StudentServiceImpl implements StudentService {
     return studentRepository.findAllByOwnerUserId(ownerUserId).stream()
         .map(student -> studentMapper.mapEntityToResponse(student))
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public void deleteStudents(List<Integer> studentIdList) {
+    Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
+    if (Objects.isNull(ownerUserId)) {
+      // todo: return bad request
+      return;
+    }
+
+    // todo: optimize
+    studentRepository.deleteAllById(
+        studentRepository.findAllById(studentIdList).stream()
+            .filter(student -> ownerUserId.equals(student.getOwnerUserId()))
+            .map(Student::getId)
+            .toList());
   }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -80,5 +81,17 @@ public class JwtUtil {
 
   private List<String> getRoles(Claims claims) {
     return (List<String>) claims.get("roles");
+  }
+
+  public static Integer extractOwnerUserIdFromJwt() {
+    Integer ownerUserId = null;
+    if (Objects.nonNull(SecurityContextHolder.getContext().getAuthentication())
+        && Objects.nonNull(SecurityContextHolder.getContext().getAuthentication().getPrincipal())) {
+      User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      if (Objects.nonNull(user)) {
+        ownerUserId = user.getId();
+      }
+    }
+    return ownerUserId;
   }
 }
