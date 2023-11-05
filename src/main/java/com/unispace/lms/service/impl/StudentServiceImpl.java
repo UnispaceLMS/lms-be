@@ -64,18 +64,22 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public void deleteStudents(List<Integer> studentIdList) {
+  public List<StudentRequest> deleteStudents(List<Integer> studentIdList) {
     Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
     if (Objects.isNull(ownerUserId)) {
       // todo: return bad request
-      return;
+      return null;
     }
 
-    // todo: optimize
-    studentRepository.deleteAllById(
-        studentRepository.findAllById(studentIdList).stream()
-            .filter(student -> ownerUserId.equals(student.getOwnerUserId()))
-            .map(Student::getId)
-            .toList());
+    List<Student> students = studentRepository.findAllByOwnerUserId(ownerUserId);
+
+    List<Integer> idsToBeRemoved =
+        students.stream().map(Student::getId).filter(studentIdList::contains).toList();
+    studentRepository.deleteAllById(idsToBeRemoved);
+
+    return students.stream()
+        .filter(student -> !studentIdList.contains(student.getId()))
+        .map(student -> studentMapper.mapEntityToResponse(student))
+        .toList();
   }
 }

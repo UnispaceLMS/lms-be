@@ -10,5 +10,5 @@ public interface StudentService {
 
   List<StudentRequest> fetchRoster();
 
-  void deleteStudents(List<Integer> studentIdList);
+  List<StudentRequest> deleteStudents(List<Integer> studentIdList);
 }

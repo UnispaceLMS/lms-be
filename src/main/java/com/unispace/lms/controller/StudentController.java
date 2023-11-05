@@ -46,8 +46,10 @@ public class StudentController {
   }
 
   @DeleteMapping(value = "/delete")
-  public ResponseEntity<List<Integer>> deleteStudents(@RequestBody List<Integer> studentIdList) {
+  public ResponseEntity<List<StudentRequest>> deleteStudents(
+      @RequestBody List<Integer> studentIdList) {
     studentService.deleteStudents(studentIdList);
-    return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    return ResponseEntity.status(HttpStatus.ACCEPTED)
+        .body(studentService.deleteStudents(studentIdList));
   }
 }
