@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -56,14 +57,21 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<StudentRequest> fetchRoster(int page, int size) {
+  public List<StudentRequest> fetchRoster(String searchQuery, int page, int size) {
     Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
     if (Objects.isNull(ownerUserId)) {
       // todo: return bad request
       return null;
     }
     Pageable pageable = PageRequest.of(page, size);
-    Page<Student> paginatedStudents = studentRepository.findAllByOwnerUserId(ownerUserId, pageable);
+    Page<Student> paginatedStudents;
+    if (StringUtils.isBlank(searchQuery)) {
+      paginatedStudents = studentRepository.findAllByOwnerUserId(ownerUserId, pageable);
+    } else {
+      searchQuery = "%".concat(searchQuery).concat("%");
+      paginatedStudents =
+          studentRepository.findAllByOwnerUserId(searchQuery, ownerUserId, pageable);
+    }
     if (Objects.isNull(paginatedStudents)
         || CollectionUtils.isEmpty(paginatedStudents.getContent())) {
       return new ArrayList<>();

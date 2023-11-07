@@ -42,8 +42,10 @@ public class StudentController {
 
   @GetMapping(value = "/roster", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<StudentRequest>> fetchRoster(
-      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-    return ResponseEntity.ok(studentService.fetchRoster(page, size));
+      @RequestParam(required = false) String searchQuery,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
+    return ResponseEntity.ok(studentService.fetchRoster(searchQuery, page, size));
   }
 
   @DeleteMapping(value = "/delete")
