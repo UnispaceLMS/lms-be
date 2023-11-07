@@ -84,6 +84,20 @@ public class Student {
 
   private String peopleCopingMechanism;
 
+  private String dreamJobs;
+
+  private String dreamLivingSituations;
+
+  private String safetyConceptStruggles;
+
+  private String helpfulAccommodation;
+
+  private String morningHelp;
+
+  private String afternoonHelp;
+
+  private String eveningHelp;
+
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_allergy")
   @Column(name = "allergy")
@@ -120,16 +134,6 @@ public class Student {
   private List<String> family;
 
   @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_dream_job")
-  @Column(name = "dream_job")
-  private List<String> dreamJobs;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_dream_living_situation")
-  @Column(name = "dream_living_situation")
-  private List<String> dreamLivingSituations;
-
-  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_worry")
   @Column(name = "worry")
   private List<String> worries;
@@ -153,31 +157,6 @@ public class Student {
   @CollectionTable(name = "student_hard_time")
   @Column(name = "hard_time")
   private List<String> hardTimesOfYear;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_safety_struggle")
-  @Column(name = "safety_struggle")
-  private List<String> safetyConceptStruggles;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_helpful_accommodation")
-  @Column(name = "helpful_accommodation")
-  private List<String> helpfulAccommodations;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_morning_help")
-  @Column(name = "morning_help")
-  private List<String> morningHelps;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_afternoon_help")
-  @Column(name = "afternoon_help")
-  private List<String> afternoonHelps;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_evening_help")
-  @Column(name = "evening_help")
-  private List<String> eveningHelps;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_independently_capable_task")
@@ -296,6 +275,27 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getPeopleCopingMechanism())) {
       newEntity.setPeopleCopingMechanism(existingEntity.getPeopleCopingMechanism());
     }
+    if (StringUtils.isEmpty(newEntity.getDreamJobs())) {
+      newEntity.setDreamJobs(existingEntity.getDreamJobs());
+    }
+    if (StringUtils.isEmpty(newEntity.getDreamLivingSituations())) {
+      newEntity.setDreamLivingSituations(existingEntity.getDreamLivingSituations());
+    }
+    if (StringUtils.isEmpty(newEntity.getSafetyConceptStruggles())) {
+      newEntity.setSafetyConceptStruggles(existingEntity.getSafetyConceptStruggles());
+    }
+    if (StringUtils.isEmpty(newEntity.getHelpfulAccommodation())) {
+      newEntity.setHelpfulAccommodation(existingEntity.getHelpfulAccommodation());
+    }
+    if (StringUtils.isEmpty(newEntity.getMorningHelp())) {
+      newEntity.setMorningHelp(existingEntity.getMorningHelp());
+    }
+    if (StringUtils.isEmpty(newEntity.getAfternoonHelp())) {
+      newEntity.setAfternoonHelp(existingEntity.getAfternoonHelp());
+    }
+    if (StringUtils.isEmpty(newEntity.getEveningHelp())) {
+      newEntity.setEveningHelp(existingEntity.getEveningHelp());
+    }
     if (CollectionUtils.isEmpty(newEntity.getAllergies())) {
       newEntity.setAllergies(existingEntity.getAllergies());
     } else {
@@ -331,16 +331,6 @@ public class Student {
     } else {
       newEntity.getFamily().addAll(existingEntity.getFamily());
     }
-    if (CollectionUtils.isEmpty(newEntity.getDreamJobs())) {
-      newEntity.setDreamJobs(existingEntity.getDreamJobs());
-    } else {
-      newEntity.getDreamJobs().addAll(existingEntity.getDreamJobs());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getDreamLivingSituations())) {
-      newEntity.setDreamLivingSituations(existingEntity.getDreamLivingSituations());
-    } else {
-      newEntity.getDreamLivingSituations().addAll(existingEntity.getDreamLivingSituations());
-    }
     if (CollectionUtils.isEmpty(newEntity.getWorries())) {
       newEntity.setWorries(existingEntity.getWorries());
     } else {
@@ -365,31 +355,6 @@ public class Student {
       newEntity.setHardTimesOfYear(existingEntity.getHardTimesOfYear());
     } else {
       newEntity.getHardTimesOfYear().addAll(existingEntity.getHardTimesOfYear());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getSafetyConceptStruggles())) {
-      newEntity.setSafetyConceptStruggles(existingEntity.getSafetyConceptStruggles());
-    } else {
-      newEntity.getSafetyConceptStruggles().addAll(existingEntity.getSafetyConceptStruggles());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getHelpfulAccommodations())) {
-      newEntity.setHelpfulAccommodations(existingEntity.getHelpfulAccommodations());
-    } else {
-      newEntity.getHelpfulAccommodations().addAll(existingEntity.getHelpfulAccommodations());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getMorningHelps())) {
-      newEntity.setMorningHelps(existingEntity.getMorningHelps());
-    } else {
-      newEntity.getMorningHelps().addAll(existingEntity.getMorningHelps());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getAfternoonHelps())) {
-      newEntity.setAfternoonHelps(existingEntity.getAfternoonHelps());
-    } else {
-      newEntity.getAfternoonHelps().addAll(existingEntity.getAfternoonHelps());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getEveningHelps())) {
-      newEntity.setEveningHelps(existingEntity.getEveningHelps());
-    } else {
-      newEntity.getEveningHelps().addAll(existingEntity.getEveningHelps());
     }
     if (CollectionUtils.isEmpty(newEntity.getIndependentlyCapableTasks())) {
       newEntity.setIndependentlyCapableTasks(existingEntity.getIndependentlyCapableTasks());
