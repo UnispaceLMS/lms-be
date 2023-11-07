@@ -60,9 +60,9 @@ public class StudentRequest {
 
   private List<String> family;
 
-  private List<String> dreamJobs;
+  private String dreamJob;
 
-  private List<String> dreamLivingSituations;
+  private String dreamLivingSituation;
 
   private List<String> worries;
 
@@ -72,13 +72,13 @@ public class StudentRequest {
 
   private List<String> hardTimesOfYear;
 
-  private List<String> safetyConceptStruggles;
+  private String safetyConceptStruggle;
 
-  private List<String> helpfulAccommodations;
+  private String helpfulAccommodation;
 
-  private List<String> morningHelps;
+  private String morningHelp;
 
-  private List<String> eveningHelps;
+  private String eveningHelp;
 
   private List<String> independentlyCapableTasks;
 
@@ -114,7 +114,7 @@ public class StudentRequest {
 
   private List<String> fears;
 
-  private List<String> afternoonHelps;
+  private String afternoonHelp;
 
   private List<SupportRequest> supports;
 
