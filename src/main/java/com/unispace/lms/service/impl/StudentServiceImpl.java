@@ -1,17 +1,17 @@
 package com.unispace.lms.service.impl;
 
 import com.unispace.lms.auth.JwtUtil;
+import com.unispace.lms.dto.PaginatedResponse;
 import com.unispace.lms.dto.student.StudentRequest;
 import com.unispace.lms.mapper.StudentMapper;
 import com.unispace.lms.model.Student;
 import com.unispace.lms.model.User;
 import com.unispace.lms.repository.StudentRepository;
 import com.unispace.lms.service.StudentService;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -57,7 +56,21 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<StudentRequest> fetchRoster(String searchQuery, int page, int size) {
+  public PaginatedResponse<StudentRequest> fetchRoster(String searchQuery, int page, int size) {
+    Page<Student> studentPage = fetchRosterFromDb(searchQuery, page, size);
+    if (Objects.isNull(studentPage) || studentPage.isEmpty()) {
+      return new PaginatedResponse<>(Collections.emptyList(), 0L, 0L, 0L);
+    }
+    return PaginatedResponse.<StudentRequest>builder()
+        .response(
+            studentPage.get().map(student -> studentMapper.mapEntityToResponse(student)).toList())
+        .totalElements(studentPage.getTotalElements())
+        .totalPages((long) studentPage.getTotalPages())
+        .currentPage((long) page)
+        .build();
+  }
+
+  private Page<Student> fetchRosterFromDb(String searchQuery, int page, int size) {
     Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
     if (Objects.isNull(ownerUserId)) {
       // todo: return bad request
@@ -72,14 +85,7 @@ public class StudentServiceImpl implements StudentService {
       paginatedStudents =
           studentRepository.findAllByOwnerUserId(searchQuery, ownerUserId, pageable);
     }
-    if (Objects.isNull(paginatedStudents)
-        || CollectionUtils.isEmpty(paginatedStudents.getContent())) {
-      return new ArrayList<>();
-    }
-    return paginatedStudents
-        .get()
-        .map(student -> studentMapper.mapEntityToResponse(student))
-        .collect(Collectors.toList());
+    return paginatedStudents;
   }
 
   @Override

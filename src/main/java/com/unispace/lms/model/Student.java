@@ -1,7 +1,6 @@
 package com.unispace.lms.model;
 
 import com.unispace.lms.enums.BloodGroup;
-import com.unispace.lms.enums.Program;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -48,7 +47,7 @@ public class Student {
 
   private String phoneNumber;
 
-  private Program program;
+  private String program;
 
   private String year;
 
@@ -90,13 +89,17 @@ public class Student {
 
   private String safetyConceptStruggles;
 
-  private String helpfulAccommodation;
+  private String accommodations;
 
   private String morningHelp;
 
   private String afternoonHelp;
 
   private String eveningHelp;
+
+  private String calmingStrategy;
+
+  private String toughestTime;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_allergy")
@@ -107,11 +110,6 @@ public class Student {
   @CollectionTable(name = "student_interest")
   @Column(name = "interest")
   private List<String> interests;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_calm_down_thing")
-  @Column(name = "calm_down_thing")
-  private List<String> calmDownThings;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_trigger")
@@ -152,11 +150,6 @@ public class Student {
   @CollectionTable(name = "student_helpful_strategy")
   @Column(name = "helpful_strategy")
   private List<String> helpfulStrategies;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_hard_time")
-  @Column(name = "hard_time")
-  private List<String> hardTimesOfYear;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_independently_capable_task")
@@ -284,8 +277,8 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getSafetyConceptStruggles())) {
       newEntity.setSafetyConceptStruggles(existingEntity.getSafetyConceptStruggles());
     }
-    if (StringUtils.isEmpty(newEntity.getHelpfulAccommodation())) {
-      newEntity.setHelpfulAccommodation(existingEntity.getHelpfulAccommodation());
+    if (StringUtils.isEmpty(newEntity.getAccommodations())) {
+      newEntity.setAccommodations(existingEntity.getAccommodations());
     }
     if (StringUtils.isEmpty(newEntity.getMorningHelp())) {
       newEntity.setMorningHelp(existingEntity.getMorningHelp());
@@ -296,6 +289,12 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getEveningHelp())) {
       newEntity.setEveningHelp(existingEntity.getEveningHelp());
     }
+    if (StringUtils.isEmpty(newEntity.getCalmingStrategy())) {
+      newEntity.setCalmingStrategy(existingEntity.getCalmingStrategy());
+    }
+    if (StringUtils.isEmpty(newEntity.getToughestTime())) {
+      newEntity.setToughestTime(existingEntity.getToughestTime());
+    }
     if (CollectionUtils.isEmpty(newEntity.getAllergies())) {
       newEntity.setAllergies(existingEntity.getAllergies());
     } else {
@@ -305,11 +304,6 @@ public class Student {
       newEntity.setInterests(existingEntity.getInterests());
     } else {
       newEntity.getInterests().addAll(existingEntity.getInterests());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getCalmDownThings())) {
-      newEntity.setCalmDownThings(existingEntity.getCalmDownThings());
-    } else {
-      newEntity.getCalmDownThings().addAll(existingEntity.getCalmDownThings());
     }
     if (CollectionUtils.isEmpty(newEntity.getTriggers())) {
       newEntity.setTriggers(existingEntity.getTriggers());
@@ -350,11 +344,6 @@ public class Student {
       newEntity.setHelpfulStrategies(existingEntity.getHelpfulStrategies());
     } else {
       newEntity.getHelpfulStrategies().addAll(existingEntity.getHelpfulStrategies());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getHardTimesOfYear())) {
-      newEntity.setHardTimesOfYear(existingEntity.getHardTimesOfYear());
-    } else {
-      newEntity.getHardTimesOfYear().addAll(existingEntity.getHardTimesOfYear());
     }
     if (CollectionUtils.isEmpty(newEntity.getIndependentlyCapableTasks())) {
       newEntity.setIndependentlyCapableTasks(existingEntity.getIndependentlyCapableTasks());

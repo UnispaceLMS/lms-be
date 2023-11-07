@@ -1,5 +1,6 @@
 package com.unispace.lms.controller;
 
+import com.unispace.lms.dto.PaginatedResponse;
 import com.unispace.lms.dto.student.StudentRequest;
 import com.unispace.lms.service.StudentService;
 import java.util.List;
@@ -41,7 +42,7 @@ public class StudentController {
   }
 
   @GetMapping(value = "/roster", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<StudentRequest>> fetchRoster(
+  public ResponseEntity<PaginatedResponse<StudentRequest>> fetchRoster(
       @RequestParam(required = false) String searchQuery,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {

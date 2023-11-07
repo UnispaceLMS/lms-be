@@ -25,25 +25,30 @@ public class CustomStudentRepositoryImpl implements CustomStudentRepository {
   public Page<Student> findAllByOwnerUserId(
       String searchQuery, Integer ownerUserId, Pageable pageable) {
     CriteriaBuilder builder = em.getCriteriaBuilder();
-    CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
-    countQuery.select(builder.count(countQuery.from(Student.class)));
-    Long count = em.createQuery(countQuery).getSingleResult();
 
     CriteriaQuery<Student> query = builder.createQuery(Student.class);
-    Root<Student> root = query.from(Student.class);
+    Root<Student> entityRoot = query.from(Student.class);
+    entityRoot.alias("root");
 
-    Predicate hasOwnerId = builder.equal(root.get("ownerUserId"), ownerUserId);
-    Predicate firstNameLike = builder.like(root.get("firstName"), searchQuery);
-    Predicate middleNameLike = builder.like(root.get("middleName"), searchQuery);
-    Predicate lastNameLike = builder.like(root.get("lastName"), searchQuery);
+    Predicate hasOwnerId = builder.equal(entityRoot.get("ownerUserId"), ownerUserId);
+    Predicate firstNameLike = builder.like(entityRoot.get("firstName"), searchQuery);
+    Predicate middleNameLike = builder.like(entityRoot.get("middleName"), searchQuery);
+    Predicate lastNameLike = builder.like(entityRoot.get("lastName"), searchQuery);
 
-    query
-        .select(root)
-        .where(builder.and(hasOwnerId, builder.or(firstNameLike, middleNameLike, lastNameLike)));
+    query.select(entityRoot).where(builder.and(hasOwnerId, builder.or(firstNameLike, middleNameLike, lastNameLike)));
     TypedQuery<Student> typedQuery = em.createQuery(query);
     typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
     typedQuery.setMaxResults(pageable.getPageSize());
 
+    CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+    Root<Student> countRoot = countQuery.from(Student.class);
+    countRoot.alias("root");
+    Predicate hasOwnerIdCount = builder.equal(countRoot.get("ownerUserId"), ownerUserId);
+    Predicate firstNameLikeCount = builder.like(countRoot.get("firstName"), searchQuery);
+    Predicate middleNameLikeCount = builder.like(countRoot.get("middleName"), searchQuery);
+    Predicate lastNameLikeCount = builder.like(countRoot.get("lastName"), searchQuery);
+    countQuery.select(builder.count(countRoot)).where(builder.and(hasOwnerIdCount, builder.or(firstNameLikeCount, middleNameLikeCount, lastNameLikeCount)));
+    Long count = em.createQuery(countQuery).getSingleResult();
     // TODO: lazy fetch?
     return new PageImpl<>(typedQuery.getResultList(), pageable, count);
   }

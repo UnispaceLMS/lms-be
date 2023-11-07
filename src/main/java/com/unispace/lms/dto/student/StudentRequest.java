@@ -1,7 +1,6 @@
 package com.unispace.lms.dto.student;
 
 import com.unispace.lms.enums.BloodGroup;
-import com.unispace.lms.enums.Program;
 import java.time.Instant;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -30,7 +29,7 @@ public class StudentRequest {
 
   private String phoneNumber;
 
-  private Program program;
+  private String program;
 
   private String year;
 
@@ -50,7 +49,7 @@ public class StudentRequest {
 
   private List<String> interests;
 
-  private List<String> calmDownThings;
+  private String calmingStrategy;
 
   private List<String> triggers;
 
@@ -70,11 +69,11 @@ public class StudentRequest {
 
   private List<String> helpfulStrategies;
 
-  private List<String> hardTimesOfYear;
+  private String toughestTime;
 
   private String safetyConceptStruggle;
 
-  private String helpfulAccommodation;
+  private String accommodations;
 
   private String morningHelp;
 
