@@ -8,7 +8,7 @@ public interface StudentService {
 
   StudentRequest fetch(Integer id);
 
-  List<StudentRequest> fetchRoster();
+  List<StudentRequest> fetchRoster(int page, int size);
 
   List<StudentRequest> deleteStudents(List<Integer> studentIdList);
 }

@@ -7,14 +7,19 @@ import com.unispace.lms.model.Student;
 import com.unispace.lms.model.User;
 import com.unispace.lms.repository.StudentRepository;
 import com.unispace.lms.service.StudentService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -51,14 +56,20 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<StudentRequest> fetchRoster() {
+  public List<StudentRequest> fetchRoster(int page, int size) {
     Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
     if (Objects.isNull(ownerUserId)) {
       // todo: return bad request
       return null;
     }
-
-    return studentRepository.findAllByOwnerUserId(ownerUserId).stream()
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Student> paginatedStudents = studentRepository.findAllByOwnerUserId(ownerUserId, pageable);
+    if (Objects.isNull(paginatedStudents)
+        || CollectionUtils.isEmpty(paginatedStudents.getContent())) {
+      return new ArrayList<>();
+    }
+    return paginatedStudents
+        .get()
         .map(student -> studentMapper.mapEntityToResponse(student))
         .collect(Collectors.toList());
   }
