@@ -43,6 +43,12 @@ public class StudentController {
 
   @GetMapping(value = "/roster", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<PaginatedResponse<StudentRequest>> fetchRoster(
+      @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    return ResponseEntity.ok(studentService.fetchRoster(null, page, size));
+  }
+
+  @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<PaginatedResponse<StudentRequest>> searchStudents(
       @RequestParam(required = false) String searchQuery,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size) {
