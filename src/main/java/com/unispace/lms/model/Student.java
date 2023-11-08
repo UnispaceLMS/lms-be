@@ -291,95 +291,57 @@ public class Student {
     }
     if (CollectionUtils.isEmpty(newEntity.getAllergies())) {
       newEntity.setAllergies(existingEntity.getAllergies());
-    } else {
-      newEntity.getAllergies().addAll(existingEntity.getAllergies());
     }
     if (CollectionUtils.isEmpty(newEntity.getInterests())) {
       newEntity.setInterests(existingEntity.getInterests());
-    } else {
-      newEntity.getInterests().addAll(existingEntity.getInterests());
     }
     if (CollectionUtils.isEmpty(newEntity.getTriggers())) {
       newEntity.setTriggers(existingEntity.getTriggers());
-    } else {
-      newEntity.getTriggers().addAll(existingEntity.getTriggers());
     }
     if (CollectionUtils.isEmpty(newEntity.getBestTeachingStrategies())) {
       newEntity.setBestTeachingStrategies(existingEntity.getBestTeachingStrategies());
-    } else {
-      newEntity.getBestTeachingStrategies().addAll(existingEntity.getBestTeachingStrategies());
     }
     if (CollectionUtils.isEmpty(newEntity.getFriends())) {
       newEntity.setFriends(existingEntity.getFriends());
-    } else {
-      newEntity.getFriends().addAll(existingEntity.getFriends());
     }
     if (CollectionUtils.isEmpty(newEntity.getFamily())) {
       newEntity.setFamily(existingEntity.getFamily());
-    } else {
-      newEntity.getFamily().addAll(existingEntity.getFamily());
     }
     if (CollectionUtils.isEmpty(newEntity.getWorries())) {
       newEntity.setWorries(existingEntity.getWorries());
-    } else {
-      newEntity.getWorries().addAll(existingEntity.getWorries());
     }
     if (CollectionUtils.isEmpty(newEntity.getFears())) {
       newEntity.setFears(existingEntity.getFears());
-    } else {
-      newEntity.getFears().addAll(existingEntity.getFears());
     }
     if (CollectionUtils.isEmpty(newEntity.getNegativeThoughtTriggers())) {
       newEntity.setNegativeThoughtTriggers(existingEntity.getNegativeThoughtTriggers());
-    } else {
-      newEntity.getNegativeThoughtTriggers().addAll(existingEntity.getNegativeThoughtTriggers());
     }
     if (CollectionUtils.isEmpty(newEntity.getHelpfulStrategies())) {
       newEntity.setHelpfulStrategies(existingEntity.getHelpfulStrategies());
-    } else {
-      newEntity.getHelpfulStrategies().addAll(existingEntity.getHelpfulStrategies());
     }
     if (CollectionUtils.isEmpty(newEntity.getIndependentlyCapableTasks())) {
       newEntity.setIndependentlyCapableTasks(existingEntity.getIndependentlyCapableTasks());
-    } else {
-      newEntity
-          .getIndependentlyCapableTasks()
-          .addAll(existingEntity.getIndependentlyCapableTasks());
     }
     if (CollectionUtils.isEmpty(newEntity.getHelpRequiredTasks())) {
       newEntity.setHelpRequiredTasks(existingEntity.getHelpRequiredTasks());
-    } else {
-      newEntity.getHelpRequiredTasks().addAll(existingEntity.getHelpRequiredTasks());
     }
     if (CollectionUtils.isEmpty(newEntity.getStrengths())) {
       newEntity.setStrengths(existingEntity.getStrengths());
-    } else {
-      newEntity.getStrengths().addAll(existingEntity.getStrengths());
     }
     if (CollectionUtils.isEmpty(newEntity.getConcerns())) {
       newEntity.setConcerns(existingEntity.getConcerns());
-    } else {
-      newEntity.getConcerns().addAll(existingEntity.getConcerns());
     }
     if (CollectionUtils.isEmpty(newEntity.getAssistances())) {
       newEntity.setAssistances(existingEntity.getAssistances());
-    } else {
-      newEntity.getAssistances().addAll(existingEntity.getAssistances());
     }
     if (CollectionUtils.isEmpty(newEntity.getRecords())) {
       newEntity.setRecords(existingEntity.getRecords());
-    } else {
-      newEntity.getRecords().addAll(existingEntity.getRecords());
     }
     if (CollectionUtils.isEmpty(newEntity.getSupports())) {
       newEntity.setSupports(existingEntity.getSupports());
-    } else {
-      newEntity.getSupports().addAll(existingEntity.getSupports());
     }
     if (CollectionUtils.isEmpty(newEntity.getTransitionAssessments())) {
       newEntity.setTransitionAssessments(existingEntity.getTransitionAssessments());
-    } else {
-      newEntity.getTransitionAssessments().addAll(existingEntity.getTransitionAssessments());
     }
   }
 }
