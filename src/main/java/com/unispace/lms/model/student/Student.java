@@ -1,6 +1,7 @@
 package com.unispace.lms.model.student;
 
 import com.unispace.lms.enums.BloodGroup;
+import com.unispace.lms.enums.Program;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -47,7 +48,7 @@ public class Student {
 
   private String phoneNumber;
 
-  private String program;
+  private Program program;
 
   private String year;
 
@@ -194,31 +195,31 @@ public class Student {
     if (Objects.isNull(newEntity.getEmail())) {
       newEntity.setEmail(existingEntity.getEmail());
     }
-    if (Objects.isNull(newEntity.getFirstName())) {
+    if (StringUtils.isEmpty(newEntity.getFirstName())) {
       newEntity.setFirstName(existingEntity.getFirstName());
     }
-    if (Objects.isNull(newEntity.getMiddleName())) {
+    if (StringUtils.isEmpty(newEntity.getMiddleName())) {
       newEntity.setMiddleName(existingEntity.getMiddleName());
     }
-    if (Objects.isNull(newEntity.getLastName())) {
+    if (StringUtils.isEmpty(newEntity.getLastName())) {
       newEntity.setLastName(existingEntity.getLastName());
     }
     if (Objects.isNull(newEntity.getDateOfBirth())) {
       newEntity.setDateOfBirth(existingEntity.getDateOfBirth());
     }
-    if (Objects.isNull(newEntity.getPhoneNumber())) {
+    if (StringUtils.isEmpty(newEntity.getPhoneNumber())) {
       newEntity.setPhoneNumber(existingEntity.getPhoneNumber());
     }
     if (Objects.isNull(newEntity.getProgram())) {
       newEntity.setProgram(existingEntity.getProgram());
     }
-    if (Objects.isNull(newEntity.getYear())) {
+    if (StringUtils.isEmpty(newEntity.getYear())) {
       newEntity.setYear(existingEntity.getYear());
     }
     if (Objects.isNull(newEntity.getExpectedGraduation())) {
       newEntity.setExpectedGraduation(existingEntity.getExpectedGraduation());
     }
-    if (Objects.isNull(newEntity.getPrimaryDiagnosis())) {
+    if (StringUtils.isEmpty(newEntity.getPrimaryDiagnosis())) {
       newEntity.setPrimaryDiagnosis(existingEntity.getPrimaryDiagnosis());
     }
     if (Objects.isNull(newEntity.getBloodGroup())) {
@@ -227,20 +228,20 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getLegalGuardianName())) {
       newEntity.setLegalGuardianName(existingEntity.getLegalGuardianName());
     }
-    if (Objects.isNull(newEntity.getEmergencyContactName())) {
+    if (StringUtils.isEmpty(newEntity.getEmergencyContactName())) {
       newEntity.setEmergencyContactName(existingEntity.getEmergencyContactName());
     }
-    if (Objects.isNull(newEntity.getEmergencyContactPhoneNumber())) {
+    if (StringUtils.isEmpty(newEntity.getEmergencyContactPhoneNumber())) {
       newEntity.setEmergencyContactPhoneNumber(existingEntity.getEmergencyContactPhoneNumber());
     }
     if (StringUtils.isEmpty(newEntity.getEmergencyContactSecondaryPhoneNumber())) {
       newEntity.setEmergencyContactSecondaryPhoneNumber(
           existingEntity.getEmergencyContactSecondaryPhoneNumber());
     }
-    if (Objects.isNull(newEntity.getEmergencyContactEmail())) {
+    if (StringUtils.isEmpty(newEntity.getEmergencyContactEmail())) {
       newEntity.setEmergencyContactEmail(existingEntity.getEmergencyContactEmail());
     }
-    if (Objects.isNull(newEntity.getMentalHealthStatus())) {
+    if (StringUtils.isEmpty(newEntity.getMentalHealthStatus())) {
       newEntity.setMentalHealthStatus(existingEntity.getMentalHealthStatus());
     }
     if (StringUtils.isEmpty(newEntity.getMedicineRoutine())) {
