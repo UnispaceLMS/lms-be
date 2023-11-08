@@ -1,6 +1,6 @@
 package com.unispace.lms.repository;
 
-import com.unispace.lms.model.Student;
+import com.unispace.lms.model.student.Student;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

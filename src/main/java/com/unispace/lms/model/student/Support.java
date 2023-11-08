@@ -1,4 +1,4 @@
-package com.unispace.lms.model;
+package com.unispace.lms.model.student;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -11,8 +11,10 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class Allergy {
-    private String allergy;
+public class Support {
+    private String supportAndModificationToEnv;
 
-    private String reaction;
+    private String condition;
+
+    private String Location;
 }

@@ -1,4 +1,4 @@
-package com.unispace.lms.model;
+package com.unispace.lms.model.student;
 
 import com.unispace.lms.enums.BloodGroup;
 import jakarta.persistence.CollectionTable;

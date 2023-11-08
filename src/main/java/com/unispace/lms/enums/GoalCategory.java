@@ -12,7 +12,8 @@ public enum GoalCategory {
     HOME_MANAGEMENT("Home Management"),
     EMPLOYMENT("Employment"),
     MONEY_MANAGEMENT("Money Management"),
-    TRANSPORTATION("Transportation");
+    TRANSPORTATION("Transportation"),
+    MISCELLANEOUS("Miscellaneous");
 
     private final String value;
 

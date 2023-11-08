@@ -1,6 +1,6 @@
 package com.unispace.lms.repository.impl;
 
-import com.unispace.lms.model.Student;
+import com.unispace.lms.model.student.Student;
 import com.unispace.lms.repository.CustomStudentRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

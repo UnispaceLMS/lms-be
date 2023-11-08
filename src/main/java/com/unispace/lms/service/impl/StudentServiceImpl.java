@@ -4,7 +4,7 @@ import com.unispace.lms.auth.JwtUtil;
 import com.unispace.lms.dto.PaginatedResponse;
 import com.unispace.lms.dto.student.StudentRequest;
 import com.unispace.lms.mapper.StudentMapper;
-import com.unispace.lms.model.Student;
+import com.unispace.lms.model.student.Student;
 import com.unispace.lms.model.User;
 import com.unispace.lms.repository.StudentRepository;
 import com.unispace.lms.service.StudentService;

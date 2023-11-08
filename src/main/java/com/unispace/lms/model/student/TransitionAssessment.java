@@ -1,6 +1,7 @@
-package com.unispace.lms.model;
+package com.unispace.lms.model.student;
 
-import com.unispace.lms.enums.AssistanceType;
+
+import com.unispace.lms.enums.GoalCategory;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -14,9 +15,9 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class Assistance {
-  @Enumerated(EnumType.STRING)
-  private AssistanceType type;
+public class TransitionAssessment {
+    @Enumerated(EnumType.STRING)
+    private GoalCategory type;
 
-  private String note;
+    private Integer score;
 }
