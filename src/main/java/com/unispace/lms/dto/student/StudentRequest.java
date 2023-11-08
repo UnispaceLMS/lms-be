@@ -45,7 +45,7 @@ public class StudentRequest {
 
   private String mentalHealthStatus;
 
-  private List<String> allergies;
+  private List<AllergyRequest> allergies;
 
   private List<String> interests;
 
@@ -96,8 +96,6 @@ public class StudentRequest {
   private String legalGuardianName;
 
   private String emergencyContactSecondaryPhoneNumber;
-
-  private String allergicReactions;
 
   private String medicineRoutine;
 

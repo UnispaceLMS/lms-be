@@ -69,8 +69,6 @@ public class Student {
 
   private String mentalHealthStatus;
 
-  private String allergicReactions;
-
   private String medicineRoutine;
 
   private String mentalHealthDiagnosis;
@@ -103,8 +101,7 @@ public class Student {
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_allergy")
-  @Column(name = "allergy")
-  private List<String> allergies;
+  private List<Allergy> allergies;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_interest")
@@ -245,9 +242,6 @@ public class Student {
     }
     if (Objects.isNull(newEntity.getMentalHealthStatus())) {
       newEntity.setMentalHealthStatus(existingEntity.getMentalHealthStatus());
-    }
-    if (StringUtils.isEmpty(newEntity.getAllergicReactions())) {
-      newEntity.setAllergicReactions(existingEntity.getAllergicReactions());
     }
     if (StringUtils.isEmpty(newEntity.getMedicineRoutine())) {
       newEntity.setMedicineRoutine(existingEntity.getMedicineRoutine());
