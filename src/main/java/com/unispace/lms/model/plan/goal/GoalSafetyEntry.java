@@ -1,22 +1,22 @@
-package com.unispace.lms.model.student;
+package com.unispace.lms.model.plan.goal;
 
-import com.unispace.lms.enums.RecordType;
+import com.unispace.lms.enums.GoalSafetyType;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
 @Embeddable
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Record {
+@EqualsAndHashCode(callSuper = true)
+public class GoalSafetyEntry extends GoalEntry {
   @Enumerated(EnumType.STRING)
-  private RecordType type;
-
-  private String note;
+  private GoalSafetyType type;
 }

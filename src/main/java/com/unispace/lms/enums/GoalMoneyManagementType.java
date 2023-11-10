@@ -1,0 +1,10 @@
+package com.unispace.lms.enums;
+
+public enum GoalMoneyManagementType {
+  ACCOUNTING_BANKING,
+  BUDGETING_BILLS,
+  DECISION_MAKING,
+  SHOPPING_DECISIONS_PLANNING,
+  SHOPPING_SKILLS,
+  CALCULATING
+}

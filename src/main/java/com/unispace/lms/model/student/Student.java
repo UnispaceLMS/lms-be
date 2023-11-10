@@ -11,8 +11,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Transient;
-import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
@@ -44,13 +46,15 @@ public class Student {
 
   private String lastName;
 
-  private Instant dateOfBirth;
+  @Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+  @Temporal(TemporalType.DATE)
+  private Date dateOfBirth;
 
   private String phoneNumber;
 
   private Program program;
 
-  private String year;
+  private Integer year;
 
   private Integer expectedGraduation;
 
@@ -172,10 +176,6 @@ public class Student {
   private List<Assistance> assistances;
 
   @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "student_record")
-  private List<Record> records;
-
-  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "student_support")
   private List<Support> supports;
 
@@ -213,7 +213,7 @@ public class Student {
     if (Objects.isNull(newEntity.getProgram())) {
       newEntity.setProgram(existingEntity.getProgram());
     }
-    if (StringUtils.isEmpty(newEntity.getYear())) {
+    if (Objects.isNull(newEntity.getYear())) {
       newEntity.setYear(existingEntity.getYear());
     }
     if (Objects.isNull(newEntity.getExpectedGraduation())) {
@@ -334,9 +334,6 @@ public class Student {
     }
     if (CollectionUtils.isEmpty(newEntity.getAssistances())) {
       newEntity.setAssistances(existingEntity.getAssistances());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getRecords())) {
-      newEntity.setRecords(existingEntity.getRecords());
     }
     if (CollectionUtils.isEmpty(newEntity.getSupports())) {
       newEntity.setSupports(existingEntity.getSupports());

@@ -2,7 +2,7 @@ package com.unispace.lms.dto.student;
 
 import com.unispace.lms.enums.BloodGroup;
 import com.unispace.lms.enums.Program;
-import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,13 +26,13 @@ public class StudentRequest {
 
   private String lastName;
 
-  private Instant dateOfBirth;
+  private Date dateOfBirth;
 
   private String phoneNumber;
 
   private Program program;
 
-  private String year;
+  private Integer year;
 
   private Integer expectedGraduation;
 
@@ -89,8 +89,6 @@ public class StudentRequest {
   private List<StrengthOrConcernRequest> concerns;
 
   private List<AssistanceRequest> assistances;
-
-  private List<RecordRequest> records;
 
   private BloodGroup bloodGroup;
 
