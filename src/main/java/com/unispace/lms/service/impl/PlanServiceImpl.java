@@ -4,7 +4,6 @@ import com.unispace.lms.dto.plan.AnnualPlanDto;
 import com.unispace.lms.mapper.PlanMapper;
 import com.unispace.lms.model.plan.AnnualPlan;
 import com.unispace.lms.repository.AnnualPlanRepository;
-import com.unispace.lms.repository.PlanGoalRepository;
 import com.unispace.lms.service.PlanService;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
   @Autowired AnnualPlanRepository annualPlanRepository;
-  @Autowired PlanGoalRepository planGoalRepository;
   @Autowired PlanMapper planMapper;
 
   @Override

@@ -1,6 +1,6 @@
 package com.unispace.lms.model.plan;
 
-import com.unispace.lms.model.plan.goal.Goal;
+import com.unispace.lms.model.plan.goal.PlanGoal;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -33,11 +33,23 @@ public class AnnualPlan {
 
   private Integer studentId;
 
+  private Integer year;
+
   @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "goal_id", referencedColumnName = "id")
-  private Goal goal;
+  private PlanGoal goal;
 
-  private Integer year;
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "present_level_id", referencedColumnName = "id")
+  private PlanPresentLevel presentLevel;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "assessment_id", referencedColumnName = "id")
+  private PlanAssessment assessment;
+
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "vision_id", referencedColumnName = "id")
+  private PlanVision vision;
 
   @Transient
   public static void prepareForUpsert(AnnualPlan newEntity, AnnualPlan existingEntity) {
@@ -48,7 +60,7 @@ public class AnnualPlan {
     if (Objects.isNull(newEntity.getGoal())) {
       newEntity.setGoal(existingEntity.getGoal());
     } else {
-      Goal.prepareForUpsert(newEntity.getGoal(), existingEntity.getGoal());
+      PlanGoal.prepareForUpsert(newEntity.getGoal(), existingEntity.getGoal());
     }
   }
 }

@@ -1,6 +1,6 @@
 package com.unispace.lms.dto.plan;
 
-import com.unispace.lms.dto.plan.goal.GoalDto;
+import com.unispace.lms.dto.plan.goal.PlanGoalDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +15,11 @@ public class AnnualPlanDto {
 
   private Integer year;
 
-  private GoalDto goal;
+  private PlanGoalDto goal;
+
+  private PlanPresentLevelDto presentLevel;
+
+  private PlanAssessmentDto assessment;
+
+  private PlanVisionDto vision;
 }

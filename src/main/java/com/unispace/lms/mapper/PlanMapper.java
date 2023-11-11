@@ -1,9 +1,9 @@
 package com.unispace.lms.mapper;
 
 import com.unispace.lms.dto.plan.AnnualPlanDto;
-import com.unispace.lms.dto.plan.goal.GoalDto;
+import com.unispace.lms.dto.plan.goal.PlanGoalDto;
 import com.unispace.lms.model.plan.AnnualPlan;
-import com.unispace.lms.model.plan.goal.Goal;
+import com.unispace.lms.model.plan.goal.PlanGoal;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
@@ -12,7 +12,7 @@ public interface PlanMapper {
 
   AnnualPlan mapDtoToEntity(AnnualPlanDto annualPlanDto);
 
-  GoalDto mapEntityToDto(Goal goal);
+  PlanGoalDto mapEntityToDto(PlanGoal goal);
 
-  Goal mapDtoToEntity(GoalDto goalDto);
+  PlanGoal mapDtoToEntity(PlanGoalDto goalDto);
 }
