@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Allergy {
-    private String allergy;
+  private String allergy;
 
-    private String reaction;
+  private String reaction;
 }

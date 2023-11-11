@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AllergyRequest {
-    private String allergy;
+  private String allergy;
 
-    private String reaction;
+  private String reaction;
 }
