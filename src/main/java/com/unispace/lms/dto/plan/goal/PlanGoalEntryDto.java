@@ -1,8 +1,10 @@
 package com.unispace.lms.dto.plan.goal;
 
-import com.unispace.lms.enums.AssessmentType;
-import com.unispace.lms.enums.Schedule;
+import com.unispace.lms.enums.plan.PlanGoalSchedule;
+import com.unispace.lms.enums.plan.PlanGoalAssessmentType;
 import java.util.Date;
+
+import com.unispace.lms.enums.plan.PlanGoalStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,9 +19,11 @@ public class PlanGoalEntryDto {
 
   private String shortTermObjective;
 
-  private AssessmentType assessmentType;
+  private PlanGoalAssessmentType assessmentType;
 
-  private Schedule schedule;
+  private PlanGoalSchedule schedule;
 
   private String criteria;
+
+  private PlanGoalStatus status;
 }

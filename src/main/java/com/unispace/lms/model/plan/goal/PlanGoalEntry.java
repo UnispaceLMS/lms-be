@@ -1,7 +1,8 @@
 package com.unispace.lms.model.plan.goal;
 
-import com.unispace.lms.enums.AssessmentType;
-import com.unispace.lms.enums.Schedule;
+import com.unispace.lms.enums.plan.PlanGoalAssessmentType;
+import com.unispace.lms.enums.plan.PlanGoalSchedule;
+import com.unispace.lms.enums.plan.PlanGoalStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,10 +28,12 @@ public class PlanGoalEntry {
   private String shortTermObjective;
 
   @Enumerated(EnumType.STRING)
-  private AssessmentType assessmentType;
+  private PlanGoalAssessmentType assessmentType;
 
   @Enumerated(EnumType.STRING)
-  private Schedule schedule;
+  private PlanGoalSchedule schedule;
 
   private String criteria;
+
+  private PlanGoalStatus status;
 }
