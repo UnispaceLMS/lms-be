@@ -50,10 +50,11 @@ public class StudentController {
   }
 
   @DeleteMapping(value = "/delete")
-  public ResponseEntity<List<StudentRequest>> deleteStudents(
-      @RequestBody List<Integer> studentIdList) {
-    studentService.deleteStudents(studentIdList);
+  public ResponseEntity<PaginatedResponse<StudentRequest>> deleteStudents(
+      @RequestBody List<Integer> studentIdList,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
     return ResponseEntity.status(HttpStatus.ACCEPTED)
-        .body(studentService.deleteStudents(studentIdList));
+        .body(studentService.deleteStudents(studentIdList, page, size));
   }
 }

@@ -4,14 +4,15 @@ import com.unispace.lms.auth.JwtUtil;
 import com.unispace.lms.dto.PaginatedResponse;
 import com.unispace.lms.dto.student.StudentRequest;
 import com.unispace.lms.mapper.StudentMapper;
-import com.unispace.lms.model.student.Student;
 import com.unispace.lms.model.User;
+import com.unispace.lms.model.student.Student;
 import com.unispace.lms.repository.StudentRepository;
 import com.unispace.lms.service.StudentService;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,22 +90,49 @@ public class StudentServiceImpl implements StudentService {
   }
 
   @Override
-  public List<StudentRequest> deleteStudents(List<Integer> studentIdList) {
+  public PaginatedResponse<StudentRequest> deleteStudents(
+      List<Integer> studentIdList, int page, int size) {
     Integer ownerUserId = JwtUtil.extractOwnerUserIdFromJwt();
     if (Objects.isNull(ownerUserId)) {
       // todo: return bad request
       return null;
     }
-
-    List<Student> students = studentRepository.findAllByOwnerUserId(ownerUserId);
-
-    List<Integer> idsToBeRemoved =
-        students.stream().map(Student::getId).filter(studentIdList::contains).toList();
-    studentRepository.deleteAllById(idsToBeRemoved);
-
-    return students.stream()
-        .filter(student -> !studentIdList.contains(student.getId()))
-        .map(student -> studentMapper.mapEntityToResponse(student))
-        .toList();
+    studentRepository.deleteAllById(studentIdList);
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Student> paginatedStudents = studentRepository.findAllByOwnerUserId(ownerUserId, pageable);
+    if (paginatedStudents.hasContent()) {
+      return PaginatedResponse.<StudentRequest>builder()
+          .response(
+              paginatedStudents
+                  .get()
+                  .map(student -> studentMapper.mapEntityToResponse(student))
+                  .collect(Collectors.toList()))
+          .currentPage((long) page)
+          .totalPages((long) paginatedStudents.getTotalPages())
+          .totalElements(paginatedStudents.getTotalElements())
+          .build();
+    }
+    if (page < 1) {
+      return null;
+    } else {
+      while (paginatedStudents.isEmpty() && page > 0) {
+        page--;
+        pageable = PageRequest.of(page, size);
+        paginatedStudents = studentRepository.findAllByOwnerUserId(ownerUserId, pageable);
+      }
+      if (paginatedStudents.isEmpty()) {
+        return null;
+      }
+      return PaginatedResponse.<StudentRequest>builder()
+          .response(
+              paginatedStudents
+                  .get()
+                  .map(student -> studentMapper.mapEntityToResponse(student))
+                  .collect(Collectors.toList()))
+          .currentPage((long) page)
+          .totalPages((long) paginatedStudents.getTotalPages())
+          .totalElements(paginatedStudents.getTotalElements())
+          .build();
+    }
   }
 }

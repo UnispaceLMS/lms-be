@@ -11,5 +11,5 @@ public interface StudentService {
 
   PaginatedResponse<StudentRequest> fetchRoster(String searchQuery, int page, int size);
 
-  List<StudentRequest> deleteStudents(List<Integer> studentIdList);
+  PaginatedResponse<StudentRequest> deleteStudents(List<Integer> studentIdList, int page, int size);
 }

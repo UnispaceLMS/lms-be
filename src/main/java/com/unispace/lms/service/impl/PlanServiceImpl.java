@@ -1,14 +1,20 @@
 package com.unispace.lms.service.impl;
 
 import com.unispace.lms.dto.plan.AnnualPlanDto;
+import com.unispace.lms.dto.plan.FetchYearsResponse;
 import com.unispace.lms.mapper.PlanMapper;
 import com.unispace.lms.model.plan.AnnualPlan;
 import com.unispace.lms.repository.AnnualPlanRepository;
 import com.unispace.lms.service.PlanService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -38,5 +44,24 @@ public class PlanServiceImpl implements PlanService {
   @Override
   public AnnualPlanDto fetch(Integer studentId, Integer year) {
     return planMapper.mapEntityToDto(annualPlanRepository.findByStudentIdAndYear(studentId, year));
+  }
+
+  @Override
+  public Map<Integer, FetchYearsResponse> fetchYears(Integer studentId) {
+    List<AnnualPlan> annualPlans = annualPlanRepository.findByStudentId(studentId);
+    if (CollectionUtils.isEmpty(annualPlans)) {
+      return new HashMap<>();
+    }
+    return annualPlans.stream()
+        .collect(
+            Collectors.toMap(
+                AnnualPlan::getYear,
+                annualPlan ->
+                    FetchYearsResponse.builder()
+                        .goalExists(Objects.nonNull(annualPlan.getGoal()))
+                        .presentLevelExists(Objects.nonNull(annualPlan.getPresentLevel()))
+                        .assessmentExists(Objects.nonNull(annualPlan.getAssessment()))
+                        .visionExists(Objects.nonNull(annualPlan.getVision()))
+                        .build()));
   }
 }

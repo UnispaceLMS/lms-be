@@ -1,7 +1,9 @@
 package com.unispace.lms.controller;
 
 import com.unispace.lms.dto.plan.AnnualPlanDto;
+import com.unispace.lms.dto.plan.FetchYearsResponse;
 import com.unispace.lms.service.PlanService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,5 +47,11 @@ public class AnnualPlanController {
   public ResponseEntity<Void> delete(@RequestParam Integer studentId, @RequestParam Integer year) {
     planService.delete(studentId, year);
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
+  @GetMapping(value = "/fetchYears")
+  public ResponseEntity<Map<Integer, FetchYearsResponse>> fetchYears(
+      @RequestParam Integer studentId) {
+    return ResponseEntity.ok(planService.fetchYears(studentId));
   }
 }
