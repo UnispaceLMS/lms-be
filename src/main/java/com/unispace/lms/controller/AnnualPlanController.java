@@ -31,10 +31,7 @@ public class AnnualPlanController {
         .body(planService.createOrUpdate(annualPlanDto));
   }
 
-  @GetMapping(
-      value = "/fetch",
-      consumes = MediaType.APPLICATION_JSON_VALUE,
-      produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/fetch", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AnnualPlanDto> fetch(
       @RequestParam Integer studentId, @RequestParam Integer year) {
     return ResponseEntity.ok(planService.fetch(studentId, year));
@@ -49,7 +46,7 @@ public class AnnualPlanController {
     return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
-  @GetMapping(value = "/fetchYears")
+  @GetMapping(value = "/fetchYears", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Map<Integer, FetchYearsResponse>> fetchYears(
       @RequestParam Integer studentId) {
     return ResponseEntity.ok(planService.fetchYears(studentId));
