@@ -42,7 +42,8 @@ public class SecurityConfig {
                         "swagger-ui/**",
                         "/swagger-ui/index.html",
                         "/v3/api-docs/swagger-config",
-                        "/v3/api-docs")
+                        "/v3/api-docs",
+                        "/ping")
                     .permitAll()
                     .requestMatchers("/v1.0/auth/**")
                     .permitAll()
