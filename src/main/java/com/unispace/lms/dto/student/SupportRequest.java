@@ -14,5 +14,5 @@ public class SupportRequest {
 
   private String condition;
 
-  private String Location;
+  private String location;
 }

@@ -16,5 +16,5 @@ public class Support {
 
     private String condition;
 
-    private String Location;
+    private String location;
 }
