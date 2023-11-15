@@ -12,4 +12,6 @@ public interface PlanService {
   AnnualPlanDto fetch(Integer studentId, Integer year);
 
   Map<Integer, FetchYearsResponse> fetchYears(Integer studentId);
+
+  AnnualPlanDto fetchQuarterlyReport(Integer studentId, Integer year, Integer quarterNumber);
 }

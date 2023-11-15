@@ -51,4 +51,12 @@ public class AnnualPlanController {
       @RequestParam Integer studentId) {
     return ResponseEntity.ok(planService.fetchYears(studentId));
   }
+
+  @GetMapping(value = "/quarterlyReport", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<AnnualPlanDto> fetchQuarterlyReport(
+      @RequestParam Integer studentId,
+      @RequestParam Integer year,
+      @RequestParam Integer quarterNumber) {
+    return ResponseEntity.ok(planService.fetchQuarterlyReport(studentId, year, quarterNumber));
+  }
 }

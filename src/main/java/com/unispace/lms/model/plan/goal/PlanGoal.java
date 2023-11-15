@@ -132,4 +132,39 @@ public class PlanGoal {
           newEntity.getMiscellaneous(), existingEntity.getMiscellaneous());
     }
   }
+
+  @Transient
+  public static void filterByQuarter(PlanGoal goal, Integer year, Integer quarterNumber) {
+    if (Objects.isNull(goal) || Objects.isNull(quarterNumber) || Objects.isNull(year)) {
+      return;
+    }
+    if (Objects.nonNull(goal.getHealthWellness())) {
+      PlanGoalHealthWellness.filterByQuarter(goal.getHealthWellness(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getPersonalManagement())) {
+      PlanGoalPersonalManagement.filterByQuarter(goal.getPersonalManagement(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getHomeManagement())) {
+      PlanGoalHomeManagement.filterByQuarter(goal.getHomeManagement(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getSafety())) {
+      PlanGoalSafety.filterByQuarter(goal.getSafety(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getTransportation())) {
+      PlanGoalTransportation.filterByQuarter(goal.getTransportation(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getHealthyRelationship())) {
+      PlanGoalHealthyRelationship.filterByQuarter(
+          goal.getHealthyRelationship(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getMoneyManagement())) {
+      PlanGoalMoneyManagement.filterByQuarter(goal.getMoneyManagement(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getEmployment())) {
+      PlanGoalEmployment.filterByQuarter(goal.getEmployment(), year, quarterNumber);
+    }
+    if (Objects.nonNull(goal.getMiscellaneous())) {
+      PlanGoalMiscellaneous.filterByQuarter(goal.getMiscellaneous(), year, quarterNumber);
+    }
+  }
 }

@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlanAssessmentDto {
-  private String purpose;
+public class PlanQuarterlyAssessmentDto {
+  private Integer quarterNumber;
+
+  private String studentStrengths;
 
   private List<PlanAssessmentScoreDto> scores;
-
-  private List<PlanAssessmentAdditionalScoreDto> additionalScores;
 }

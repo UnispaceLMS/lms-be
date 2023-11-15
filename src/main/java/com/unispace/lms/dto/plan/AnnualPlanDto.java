@@ -1,6 +1,7 @@
 package com.unispace.lms.dto.plan;
 
 import com.unispace.lms.dto.plan.goal.PlanGoalDto;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,4 +23,6 @@ public class AnnualPlanDto {
   private PlanAssessmentDto assessment;
 
   private PlanVisionDto vision;
+
+  private List<PlanQuarterlyAssessmentDto> quarterlyAssessments;
 }

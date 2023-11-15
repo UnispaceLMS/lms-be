@@ -64,4 +64,15 @@ public class PlanServiceImpl implements PlanService {
                         .visionExists(Objects.nonNull(annualPlan.getVision()))
                         .build()));
   }
+
+  @Override
+  public AnnualPlanDto fetchQuarterlyReport(
+      Integer studentId, Integer year, Integer quarterNumber) {
+    AnnualPlan annualPlan = annualPlanRepository.findByStudentIdAndYear(studentId, year);
+    if (Objects.isNull(annualPlan)) {
+      return null;
+    }
+    AnnualPlan.filterByQuarter(annualPlan, quarterNumber);
+    return planMapper.mapEntityToDto(annualPlan);
+  }
 }

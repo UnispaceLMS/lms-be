@@ -8,15 +8,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.Size;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.CollectionUtils;
 
 @Data
 @Entity
@@ -51,6 +58,12 @@ public class AnnualPlan {
   @JoinColumn(name = "vision_id", referencedColumnName = "id")
   private PlanVision vision;
 
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "annual_plan_id", referencedColumnName = "id")
+  @Size(max = 4)
+  private List<PlanQuarterlyAssessment> quarterlyAssessments;
+
+  // todo: delete row instead of setting foreign key = null
   @Transient
   public static void prepareForUpsert(AnnualPlan newEntity, AnnualPlan existingEntity) {
     if (Objects.isNull(newEntity) || Objects.isNull(existingEntity)) {
@@ -62,5 +75,45 @@ public class AnnualPlan {
     } else {
       PlanGoal.prepareForUpsert(newEntity.getGoal(), existingEntity.getGoal());
     }
+    if (CollectionUtils.isEmpty(newEntity.getQuarterlyAssessments())) {
+      newEntity.setQuarterlyAssessments(existingEntity.getQuarterlyAssessments());
+    } else {
+      if (!CollectionUtils.isEmpty(existingEntity.getQuarterlyAssessments())) {
+        Map<Integer, PlanQuarterlyAssessment> newMap =
+            newEntity.getQuarterlyAssessments().stream()
+                .collect(
+                    Collectors.toMap(
+                        PlanQuarterlyAssessment::getQuarterNumber, Function.identity()));
+        Map<Integer, PlanQuarterlyAssessment> existingMap =
+            existingEntity.getQuarterlyAssessments().stream()
+                .collect(
+                    Collectors.toMap(
+                        PlanQuarterlyAssessment::getQuarterNumber, Function.identity()));
+        for (int i = 1; i < 5; i++) {
+          if (!newMap.containsKey(i) && existingMap.containsKey(i)) {
+            newEntity.getQuarterlyAssessments().add(existingMap.get(i));
+          }
+        }
+      }
+    }
+  }
+
+  @Transient
+  public static void filterByQuarter(AnnualPlan annualPlan, Integer quarterNumber) {
+    if (Objects.isNull(annualPlan) || Objects.isNull(quarterNumber)) {
+      return;
+    }
+    annualPlan.setPresentLevel(null);
+    annualPlan.setAssessment(null);
+    annualPlan.setVision(null);
+    if (Objects.nonNull(annualPlan.getGoal())) {
+      PlanGoal.filterByQuarter(annualPlan.getGoal(), annualPlan.getYear(), quarterNumber);
+    }
+    annualPlan.setQuarterlyAssessments(
+        annualPlan.getQuarterlyAssessments().stream()
+            .filter(
+                planQuarterlyAssessment ->
+                    quarterNumber.equals(planQuarterlyAssessment.getQuarterNumber()))
+            .collect(Collectors.toList()));
   }
 }
