@@ -14,4 +14,6 @@ public class PlanAssessmentScoreDto {
   private GoalCategory category;
 
   private Integer score;
+
+  private String comment;
 }
