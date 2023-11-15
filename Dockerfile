@@ -11,5 +11,5 @@ RUN mvn -f /home/app/pom.xml clean package
 #
 FROM eclipse-temurin:17-jre-focal
 COPY --from=build /home/app/target/lms-be-0.0.1-SNAPSHOT.jar lms-be-0.0.1.jar
-EXPOSE 8080
+EXPOSE 8090
 ENTRYPOINT ["java", "-jar", "/lms-be-0.0.1.jar", "--spring.profiles.active=staging"]
