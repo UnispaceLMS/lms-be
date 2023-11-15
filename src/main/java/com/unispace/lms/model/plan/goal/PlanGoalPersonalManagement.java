@@ -1,13 +1,14 @@
 package com.unispace.lms.model.plan.goal;
 
 import com.unispace.lms.util.PlanUtil;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import java.util.Date;
@@ -35,8 +36,8 @@ public class PlanGoalPersonalManagement {
 
   private String annualGoal;
 
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "plan_goal_personal_management_entry")
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "goal_personal_management_id", referencedColumnName = "id")
   private List<PlanGoalPersonalManagementEntry> goalPersonalManagementEntries;
 
   @Transient

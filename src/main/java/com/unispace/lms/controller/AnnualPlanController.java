@@ -28,8 +28,7 @@ public class AnnualPlanController {
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<AnnualPlanDto> createOrUpdate(@RequestBody AnnualPlanDto annualPlanDto) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(planService.createOrUpdate(annualPlanDto));
+    return ResponseEntity.ok(planService.createOrUpdate(annualPlanDto));
   }
 
   @GetMapping(value = "/fetch", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -69,7 +68,7 @@ public class AnnualPlanController {
       @RequestParam Integer studentId,
       @RequestParam Integer year,
       @RequestBody PlanQuarterlyAssessmentDto planQuarterlyAssessmentDto) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(planService.updateQuarterlyGrades(studentId, year, planQuarterlyAssessmentDto));
+    return ResponseEntity.ok(
+        planService.updateQuarterlyGrades(studentId, year, planQuarterlyAssessmentDto));
   }
 }
