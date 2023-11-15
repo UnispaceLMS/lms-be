@@ -15,9 +15,7 @@ import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Size;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -79,21 +77,8 @@ public class AnnualPlan {
       newEntity.setQuarterlyAssessments(existingEntity.getQuarterlyAssessments());
     } else {
       if (!CollectionUtils.isEmpty(existingEntity.getQuarterlyAssessments())) {
-        Map<Integer, PlanQuarterlyAssessment> newMap =
-            newEntity.getQuarterlyAssessments().stream()
-                .collect(
-                    Collectors.toMap(
-                        PlanQuarterlyAssessment::getQuarterNumber, Function.identity()));
-        Map<Integer, PlanQuarterlyAssessment> existingMap =
-            existingEntity.getQuarterlyAssessments().stream()
-                .collect(
-                    Collectors.toMap(
-                        PlanQuarterlyAssessment::getQuarterNumber, Function.identity()));
-        for (int i = 1; i < 5; i++) {
-          if (!newMap.containsKey(i) && existingMap.containsKey(i)) {
-            newEntity.getQuarterlyAssessments().add(existingMap.get(i));
-          }
-        }
+        PlanQuarterlyAssessment.prepareForUpsert(
+            newEntity.getQuarterlyAssessments(), existingEntity.getQuarterlyAssessments());
       }
     }
   }

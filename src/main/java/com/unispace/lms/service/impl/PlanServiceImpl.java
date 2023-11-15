@@ -2,8 +2,10 @@ package com.unispace.lms.service.impl;
 
 import com.unispace.lms.dto.plan.AnnualPlanDto;
 import com.unispace.lms.dto.plan.FetchYearsResponse;
+import com.unispace.lms.dto.plan.PlanQuarterlyAssessmentDto;
 import com.unispace.lms.mapper.PlanMapper;
 import com.unispace.lms.model.plan.AnnualPlan;
+import com.unispace.lms.model.plan.PlanQuarterlyAssessment;
 import com.unispace.lms.repository.AnnualPlanRepository;
 import com.unispace.lms.service.PlanService;
 import java.util.HashMap;
@@ -74,5 +76,30 @@ public class PlanServiceImpl implements PlanService {
     }
     AnnualPlan.filterByQuarter(annualPlan, quarterNumber);
     return planMapper.mapEntityToDto(annualPlan);
+  }
+
+  @Override
+  public AnnualPlanDto updateQuarterlyGrades(
+      Integer studentId, Integer year, PlanQuarterlyAssessmentDto planQuarterlyAssessmentDto) {
+    AnnualPlan annualPlan = annualPlanRepository.findByStudentIdAndYear(studentId, year);
+    if (Objects.isNull(annualPlan) || Objects.isNull(planQuarterlyAssessmentDto)) {
+      // todo: return bad request
+      return null;
+    }
+    PlanQuarterlyAssessment updatedQuarterlyAssessment =
+        planMapper.mapDtoToEntity(planQuarterlyAssessmentDto);
+    if (Objects.isNull(annualPlan.getQuarterlyAssessments())) {
+      annualPlan.setQuarterlyAssessments(List.of(updatedQuarterlyAssessment));
+    } else {
+      annualPlan
+          .getQuarterlyAssessments()
+          .removeIf(
+              planQuarterlyAssessment ->
+                  planQuarterlyAssessment
+                      .getQuarterNumber()
+                      .equals(updatedQuarterlyAssessment.getQuarterNumber()));
+      annualPlan.getQuarterlyAssessments().add(updatedQuarterlyAssessment);
+    }
+    return planMapper.mapEntityToDto(annualPlanRepository.save(annualPlan));
   }
 }

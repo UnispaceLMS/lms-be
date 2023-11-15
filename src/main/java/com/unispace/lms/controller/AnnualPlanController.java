@@ -2,6 +2,7 @@ package com.unispace.lms.controller;
 
 import com.unispace.lms.dto.plan.AnnualPlanDto;
 import com.unispace.lms.dto.plan.FetchYearsResponse;
+import com.unispace.lms.dto.plan.PlanQuarterlyAssessmentDto;
 import com.unispace.lms.service.PlanService;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,17 @@ public class AnnualPlanController {
       @RequestParam Integer year,
       @RequestParam Integer quarterNumber) {
     return ResponseEntity.ok(planService.fetchQuarterlyReport(studentId, year, quarterNumber));
+  }
+
+  @PutMapping(
+      value = "/quarterlyReport/grades/update",
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<AnnualPlanDto> updateQuarterlyGrades(
+      @RequestParam Integer studentId,
+      @RequestParam Integer year,
+      @RequestBody PlanQuarterlyAssessmentDto planQuarterlyAssessmentDto) {
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(planService.updateQuarterlyGrades(studentId, year, planQuarterlyAssessmentDto));
   }
 }
