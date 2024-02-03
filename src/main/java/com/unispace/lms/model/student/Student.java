@@ -72,6 +72,12 @@ public class Student {
 
   private String emergencyContactEmail;
 
+  private String secondaryEmergencyContactName;
+
+  private String secondaryEmergencyContactPhoneNumber;
+
+  private String secondaryEmergencyContactEmail;
+
   private String mentalHealthStatus;
 
   private String medicineRoutine;
@@ -90,7 +96,9 @@ public class Student {
 
   private String dreamLivingSituations;
 
-  private String safetyConceptStruggles;
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "safety_concept_struggle")
+  private List<String> safetyConceptStruggles;
 
   private String accommodations;
 
@@ -241,6 +249,15 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getEmergencyContactEmail())) {
       newEntity.setEmergencyContactEmail(existingEntity.getEmergencyContactEmail());
     }
+    if (StringUtils.isEmpty(newEntity.getSecondaryEmergencyContactName())) {
+      newEntity.setSecondaryEmergencyContactName(existingEntity.getSecondaryEmergencyContactName());
+    }
+    if (StringUtils.isEmpty(newEntity.getSecondaryEmergencyContactPhoneNumber())) {
+      newEntity.setSecondaryEmergencyContactPhoneNumber(existingEntity.getSecondaryEmergencyContactPhoneNumber());
+    }
+    if (StringUtils.isEmpty(newEntity.getSecondaryEmergencyContactEmail())) {
+      newEntity.setSecondaryEmergencyContactEmail(existingEntity.getSecondaryEmergencyContactEmail());
+    }
     if (StringUtils.isEmpty(newEntity.getMentalHealthStatus())) {
       newEntity.setMentalHealthStatus(existingEntity.getMentalHealthStatus());
     }
@@ -269,7 +286,7 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getDreamLivingSituations())) {
       newEntity.setDreamLivingSituations(existingEntity.getDreamLivingSituations());
     }
-    if (StringUtils.isEmpty(newEntity.getSafetyConceptStruggles())) {
+    if (CollectionUtils.isEmpty(newEntity.getSafetyConceptStruggles())) {
       newEntity.setSafetyConceptStruggles(existingEntity.getSafetyConceptStruggles());
     }
     if (StringUtils.isEmpty(newEntity.getAccommodations())) {

@@ -44,6 +44,12 @@ public class StudentRequest {
 
   private String emergencyContactEmail;
 
+  private String secondaryEmergencyContactName;
+
+  private String secondaryEmergencyContactPhoneNumber;
+
+  private String secondaryEmergencyContactEmail;
+
   private String mentalHealthStatus;
 
   private List<AllergyRequest> allergies;
@@ -72,7 +78,7 @@ public class StudentRequest {
 
   private String toughestTime;
 
-  private String safetyConceptStruggle;
+  private List<String> safetyConceptStruggles;
 
   private String accommodations;
 
