@@ -21,10 +21,6 @@ public class PlanPresentLevel {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
-  private String academicAchievement;
-
-  private String academicAchievementImpactResultNeeded;
-
   private String employmentSkills;
 
   private String employmentSkillsImpactResultNeeded;

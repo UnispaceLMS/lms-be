@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlanPresentLevelDto {
-  private String academicAchievement;
-
-  private String academicAchievementImpactResultNeeded;
 
   private String employmentSkills;
 

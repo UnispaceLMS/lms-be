@@ -1,6 +1,5 @@
 package com.unispace.lms.model.student;
 
-import com.unispace.lms.enums.BloodGroup;
 import com.unispace.lms.enums.Program;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -60,8 +59,6 @@ public class Student {
 
   private String primaryDiagnosis;
 
-  private BloodGroup bloodGroup;
-
   private String legalGuardianName;
 
   private String emergencyContactName;
@@ -86,11 +83,17 @@ public class Student {
 
   private String mentalHealthStudentPerspective;
 
-  private String objectCopingMechanism;
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "object_coping_mechanism")
+  private List<String> objectCopingMechanisms;
 
-  private String activityCopingMechanism;
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "activity_coping_mechanism")
+  private List<String> activityCopingMechanisms;
 
-  private String peopleCopingMechanism;
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "people_coping_mechanism")
+  private List<String> peopleCopingMechanisms;
 
   private String dreamJobs;
 
@@ -230,9 +233,6 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getPrimaryDiagnosis())) {
       newEntity.setPrimaryDiagnosis(existingEntity.getPrimaryDiagnosis());
     }
-    if (Objects.isNull(newEntity.getBloodGroup())) {
-      newEntity.setBloodGroup(existingEntity.getBloodGroup());
-    }
     if (StringUtils.isEmpty(newEntity.getLegalGuardianName())) {
       newEntity.setLegalGuardianName(existingEntity.getLegalGuardianName());
     }
@@ -253,10 +253,12 @@ public class Student {
       newEntity.setSecondaryEmergencyContactName(existingEntity.getSecondaryEmergencyContactName());
     }
     if (StringUtils.isEmpty(newEntity.getSecondaryEmergencyContactPhoneNumber())) {
-      newEntity.setSecondaryEmergencyContactPhoneNumber(existingEntity.getSecondaryEmergencyContactPhoneNumber());
+      newEntity.setSecondaryEmergencyContactPhoneNumber(
+          existingEntity.getSecondaryEmergencyContactPhoneNumber());
     }
     if (StringUtils.isEmpty(newEntity.getSecondaryEmergencyContactEmail())) {
-      newEntity.setSecondaryEmergencyContactEmail(existingEntity.getSecondaryEmergencyContactEmail());
+      newEntity.setSecondaryEmergencyContactEmail(
+          existingEntity.getSecondaryEmergencyContactEmail());
     }
     if (StringUtils.isEmpty(newEntity.getMentalHealthStatus())) {
       newEntity.setMentalHealthStatus(existingEntity.getMentalHealthStatus());
@@ -271,14 +273,14 @@ public class Student {
       newEntity.setMentalHealthStudentPerspective(
           existingEntity.getMentalHealthStudentPerspective());
     }
-    if (StringUtils.isEmpty(newEntity.getObjectCopingMechanism())) {
-      newEntity.setObjectCopingMechanism(existingEntity.getObjectCopingMechanism());
+    if (CollectionUtils.isEmpty(newEntity.getObjectCopingMechanisms())) {
+      newEntity.setObjectCopingMechanisms(existingEntity.getObjectCopingMechanisms());
     }
-    if (StringUtils.isEmpty(newEntity.getActivityCopingMechanism())) {
-      newEntity.setActivityCopingMechanism(existingEntity.getActivityCopingMechanism());
+    if (CollectionUtils.isEmpty(newEntity.getActivityCopingMechanisms())) {
+      newEntity.setActivityCopingMechanisms(existingEntity.getActivityCopingMechanisms());
     }
-    if (StringUtils.isEmpty(newEntity.getPeopleCopingMechanism())) {
-      newEntity.setPeopleCopingMechanism(existingEntity.getPeopleCopingMechanism());
+    if (CollectionUtils.isEmpty(newEntity.getPeopleCopingMechanisms())) {
+      newEntity.setPeopleCopingMechanisms(existingEntity.getPeopleCopingMechanisms());
     }
     if (StringUtils.isEmpty(newEntity.getDreamJobs())) {
       newEntity.setDreamJobs(existingEntity.getDreamJobs());
