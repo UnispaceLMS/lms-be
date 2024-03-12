@@ -83,18 +83,6 @@ public class Student {
 
   private String mentalHealthStudentPerspective;
 
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "object_coping_mechanism")
-  private List<String> objectCopingMechanisms;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "activity_coping_mechanism")
-  private List<String> activityCopingMechanisms;
-
-  @ElementCollection(fetch = FetchType.LAZY)
-  @CollectionTable(name = "people_coping_mechanism")
-  private List<String> peopleCopingMechanisms;
-
   private String dreamJobs;
 
   private String dreamLivingSituations;
@@ -111,7 +99,9 @@ public class Student {
 
   private String eveningHelp;
 
-  private String calmingStrategy;
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "student_calming_strategy")
+  private List<String> calmingStrategies;
 
   private String toughestTime;
 
@@ -273,15 +263,6 @@ public class Student {
       newEntity.setMentalHealthStudentPerspective(
           existingEntity.getMentalHealthStudentPerspective());
     }
-    if (CollectionUtils.isEmpty(newEntity.getObjectCopingMechanisms())) {
-      newEntity.setObjectCopingMechanisms(existingEntity.getObjectCopingMechanisms());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getActivityCopingMechanisms())) {
-      newEntity.setActivityCopingMechanisms(existingEntity.getActivityCopingMechanisms());
-    }
-    if (CollectionUtils.isEmpty(newEntity.getPeopleCopingMechanisms())) {
-      newEntity.setPeopleCopingMechanisms(existingEntity.getPeopleCopingMechanisms());
-    }
     if (StringUtils.isEmpty(newEntity.getDreamJobs())) {
       newEntity.setDreamJobs(existingEntity.getDreamJobs());
     }
@@ -303,8 +284,8 @@ public class Student {
     if (StringUtils.isEmpty(newEntity.getEveningHelp())) {
       newEntity.setEveningHelp(existingEntity.getEveningHelp());
     }
-    if (StringUtils.isEmpty(newEntity.getCalmingStrategy())) {
-      newEntity.setCalmingStrategy(existingEntity.getCalmingStrategy());
+    if (CollectionUtils.isEmpty(newEntity.getCalmingStrategies())) {
+      newEntity.setCalmingStrategies(existingEntity.getCalmingStrategies());
     }
     if (StringUtils.isEmpty(newEntity.getToughestTime())) {
       newEntity.setToughestTime(existingEntity.getToughestTime());

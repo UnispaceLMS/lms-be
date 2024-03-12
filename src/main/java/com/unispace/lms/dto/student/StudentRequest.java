@@ -55,7 +55,7 @@ public class StudentRequest {
 
   private List<String> interests;
 
-  private String calmingStrategy;
+  private List<String> calmingStrategies;
 
   private List<String> triggers;
 
@@ -104,12 +104,6 @@ public class StudentRequest {
   private String mentalHealthDiagnosis;
 
   private String mentalHealthStudentPerspective;
-
-  private List<String> objectCopingMechanisms;
-
-  private List<String> activityCopingMechanisms;
-
-  private List<String> peopleCopingMechanisms;
 
   private List<String> fears;
 
