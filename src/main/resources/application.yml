@@ -29,9 +29,9 @@ spring:
       on-profile: staging
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://unispace-lms-staging.postgres.database.azure.com/unispace_lms_staging
-    username: unispace_lms_staging
-    password: "NH=M.ueHm#3*n1JeM[0M7P~GZ"
+    url: jdbc:postgresql://ep-still-glitter-32051449.us-east-2.aws.neon.tech/unispace_lms
+    username: unispace.lms
+    password: zy7SGvpjb3wt
   jpa:
     hibernate:
       ddl-auto: update
